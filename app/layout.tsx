@@ -1,9 +1,10 @@
 import type { Metadata, Viewport } from 'next';
 import './globals.css';
 
-const metadataBase = new URL(
-  process.env.NEXT_PUBLIC_SITE_URL ?? 'https://tribute-solver-20260824.ganpeng0119.chatgpt.site',
-);
+const metadataBase = process.env.NEXT_PUBLIC_SITE_URL
+  ? new URL(process.env.NEXT_PUBLIC_SITE_URL)
+  : undefined;
+const socialImage = metadataBase ? new URL('/og.png', metadataBase) : undefined;
 
 export const metadata: Metadata = {
   metadataBase,
@@ -12,13 +13,13 @@ export const metadata: Metadata = {
   openGraph: {
     title: '奉纳符推演器',
     description: '输入每行结果，推断四种宝石的正确排列。',
-    images: [{ url: '/og.png' }],
+    images: socialImage ? [{ url: socialImage }] : undefined,
   },
   twitter: {
     card: 'summary_large_image',
     title: '奉纳符推演器',
     description: '输入每行结果，推断四种宝石的正确排列。',
-    images: ['/og.png'],
+    images: socialImage ? [socialImage] : undefined,
   },
 };
 

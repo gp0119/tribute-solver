@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 
-import { parseAttemptsSnapshot } from './attempt-storage.ts';
+import { getAttemptsSnapshot, parseAttemptsSnapshot, saveAttempts } from './attempt-storage.ts';
 import { ALL_CODES, findBestRecommendation, score } from './tribute.ts';
 
 test('score handles exact, misplaced, and repeated colors', () => {
@@ -58,4 +58,26 @@ test('the cached opening recommendation retains the verified optimum', () => {
     worstCase: 256,
     solution: false,
   });
+});
+
+test('attempts remain usable when browser storage throws', () => {
+  const originalWindow = globalThis.window;
+  const attempt = { id: 20, guess: [0, 1, 2, 3], exact: 2, misplaced: 1 };
+  Object.defineProperty(globalThis, 'window', {
+    configurable: true,
+    value: {
+      localStorage: {
+        getItem() { throw new Error('blocked'); },
+        setItem() { throw new Error('blocked'); },
+      },
+    },
+  });
+
+  try {
+    saveAttempts([attempt]);
+    assert.deepEqual(parseAttemptsSnapshot(getAttemptsSnapshot()), [attempt]);
+  } finally {
+    if (originalWindow === undefined) delete globalThis.window;
+    else Object.defineProperty(globalThis, 'window', { configurable: true, value: originalWindow });
+  }
 });

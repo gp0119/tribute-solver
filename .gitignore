@@ -15,11 +15,6 @@
 /.next/
 /out/
 
-# legacy generated output (not source)
-/dist/
-/.vinext/
-/.wrangler/
-
 # local environment
 .env*
 
