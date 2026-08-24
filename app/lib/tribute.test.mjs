@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 
 import { getAttemptsSnapshot, parseAttemptsSnapshot, saveAttempts } from './attempt-storage.ts';
-import { ALL_CODES, findBestRecommendation, score } from './tribute.ts';
+import { ALL_CODES, findBestRecommendation, findMatchingCodes, score } from './tribute.ts';
 
 test('score handles exact, misplaced, and repeated colors', () => {
   assert.deepEqual(score([0, 0, 1, 1], [0, 1, 0, 1]), { exact: 2, misplaced: 2 });
@@ -58,6 +58,15 @@ test('the cached opening recommendation retains the verified optimum', () => {
     worstCase: 256,
     solution: false,
   });
+});
+
+test('contradictory records leave no matching code', () => {
+  const guess = [0, 0, 1, 1];
+  assert.deepEqual(findMatchingCodes([
+    { guess, exact: 4, misplaced: 0 },
+    { guess, exact: 0, misplaced: 0 },
+  ]), []);
+  assert.deepEqual(findMatchingCodes([{ guess, exact: 4, misplaced: 0 }]), [guess]);
 });
 
 test('attempts remain usable when browser storage throws', () => {

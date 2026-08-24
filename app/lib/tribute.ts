@@ -10,6 +10,12 @@ export type GemColor = {
 
 export type Score = { exact: number; misplaced: number };
 
+export type ScoredGuess = {
+  guess: ColorId[];
+  exact: number;
+  misplaced: number;
+};
+
 export type Recommendation = {
   code: ColorId[];
   worstCase: number;
@@ -62,6 +68,13 @@ export function scoreKey(value: Score) {
 
 export function codeKey(code: ColorId[]) {
   return code.join('');
+}
+
+export function findMatchingCodes(attempts: ScoredGuess[]): ColorId[][] {
+  return ALL_CODES.filter((answer) => attempts.every((attempt) => {
+    const result = score(attempt.guess, answer);
+    return result.exact === attempt.exact && result.misplaced === attempt.misplaced;
+  }));
 }
 
 export function randomCode(): ColorId[] {

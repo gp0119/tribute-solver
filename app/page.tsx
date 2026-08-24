@@ -13,7 +13,7 @@ import {
   saveAttempts,
   subscribeToAttempts,
 } from './lib/attempt-storage';
-import { ALL_CODES, COLORS, codeKey, findBestRecommendation, score, type ColorId, type Score } from './lib/tribute';
+import { COLORS, codeKey, findBestRecommendation, findMatchingCodes, type ColorId, type Score } from './lib/tribute';
 
 function CountOptions({ label, value, onChange, tone, maximum }: { label: string; value: number; onChange: (value: number) => void; tone: 'exact' | 'misplaced'; maximum: number }) {
   return (
@@ -37,6 +37,7 @@ function CountOptions({ label, value, onChange, tone, maximum }: { label: string
 export default function Home() {
   const [draftGuess, setDraftGuess] = useState<ColorId[]>([0, 0, 1, 1]);
   const [draftScore, setDraftScore] = useState<Score>({ exact: 0, misplaced: 0 });
+  const [showConflict, setShowConflict] = useState(false);
   const attemptsSnapshot = useSyncExternalStore(
     subscribeToAttempts,
     getAttemptsSnapshot,
@@ -44,13 +45,7 @@ export default function Home() {
   );
   const attempts = useMemo(() => parseAttemptsSnapshot(attemptsSnapshot), [attemptsSnapshot]);
 
-  const candidates = useMemo(
-    () => ALL_CODES.filter((answer) => attempts.every((attempt) => {
-      const result = score(attempt.guess, answer);
-      return result.exact === attempt.exact && result.misplaced === attempt.misplaced;
-    })),
-    [attempts],
-  );
+  const candidates = useMemo(() => findMatchingCodes(attempts), [attempts]);
 
   const recommendation = useMemo(() => findBestRecommendation(candidates), [candidates]);
 
@@ -63,7 +58,12 @@ export default function Home() {
 
   const addAttempt = () => {
     if (attempts.length >= MAX_RECORDED_ATTEMPTS || draftScore.exact + draftScore.misplaced > 4) return;
-    saveAttempts([...attempts, { id: Date.now(), guess: [...draftGuess], exact: draftScore.exact, misplaced: draftScore.misplaced }]);
+    const nextAttempt = { id: Date.now(), guess: [...draftGuess], exact: draftScore.exact, misplaced: draftScore.misplaced };
+    if (findMatchingCodes([...attempts, nextAttempt]).length === 0) {
+      setShowConflict(true);
+      return;
+    }
+    saveAttempts([...attempts, nextAttempt]);
     setDraftScore({ exact: 0, misplaced: 0 });
   };
 
@@ -71,6 +71,7 @@ export default function Home() {
     saveAttempts([]);
     setDraftGuess([0, 0, 1, 1]);
     setDraftScore({ exact: 0, misplaced: 0 });
+    setShowConflict(false);
   };
 
   const isSolved = candidates.length === 1;
@@ -217,6 +218,18 @@ export default function Home() {
         <summary>它是怎么推断的？</summary>
         <p>工具枚举六种颜色组成的所有四位排列（允许重复），仅保留与每一行两个数量都一致的答案。推荐下一手会优先让最难分辨的分支也尽可能小。</p>
       </details>
+
+      {showConflict && (
+        <div className="conflict-backdrop" role="presentation" onClick={() => setShowConflict(false)}>
+          <section className="conflict-dialog" role="alertdialog" aria-modal="true" aria-labelledby="conflict-title" onClick={(event) => event.stopPropagation()}>
+            <span className="conflict-mark" aria-hidden="true">!</span>
+            <p className="section-kicker">无法记录</p>
+            <h2 id="conflict-title">记录有矛盾</h2>
+            <p>当前颜色和图标数量与已有记录无法同时成立，请检查后再提交。</p>
+            <button type="button" className="primary-button" autoFocus onClick={() => setShowConflict(false)}>返回修改</button>
+          </section>
+        </div>
+      )}
     </main>
   );
 }

@@ -118,7 +118,6 @@ export default function PracticePage() {
               <div className="practice-current-guess"><span>当前选择</span><CodeChips code={guess} small /></div>
               <div className="practice-actions">
                 <button type="button" className="primary-button" onClick={submitGuess}>提交这一手</button>
-                <button type="button" className="reveal-button" onClick={() => setAnswerVisible(true)}>显示答案</button>
               </div>
             </div>
           </>
@@ -146,6 +145,12 @@ export default function PracticePage() {
               </li>
             ))}
           </ol>
+        )}
+        {!finished && (
+          <div className="practice-reveal-row">
+            <span>想直接结束本题？</span>
+            <button type="button" className="reveal-button" onClick={() => setAnswerVisible(true)}>显示答案</button>
+          </div>
         )}
       </section>
     </main>
