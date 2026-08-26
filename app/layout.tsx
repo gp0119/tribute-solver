@@ -10,6 +10,9 @@ export const metadata: Metadata = {
   metadataBase,
   title: '奉纳符推演器',
   description: '离线推断能力勋章奉纳符的四种宝石排列。',
+  icons: {
+    icon: '/tribute-symbol.png',
+  },
   openGraph: {
     title: '奉纳符推演器',
     description: '输入每行结果，推断四种宝石的正确排列。',

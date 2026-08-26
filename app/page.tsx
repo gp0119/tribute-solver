@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { useMemo, useState, useSyncExternalStore } from 'react'
 
 import { CodeChips, GemInput, ResultIcons } from './components/gem-ui'
@@ -96,10 +97,15 @@ export default function Home() {
         </div>
       </header>
 
+      <div className='tribute-decorations' aria-hidden='true'>
+        <Image src='/tribute-symbol.png' alt='' width={64} height={64} />
+        <Image src='/tribute-box.png' alt='' width={64} height={64} />
+        <Image src='/saltfish-statue.png' alt='' width={64} height={64} />
+      </div>
+
       <section className='history-section history-section-top' aria-labelledby='history-title'>
         <div className='history-heading'>
           <div>
-            <p className='section-kicker'>已记录</p>
             <h2 id='history-title'>推理记录</h2>
           </div>
         </div>
@@ -132,7 +138,6 @@ export default function Home() {
         <section className='panel entry-panel' aria-labelledby='entry-title'>
           <div className='panel-heading'>
             <div>
-              <p className='section-kicker'>录入本行</p>
               <h2 id='entry-title'>第 {Math.min(attempts.length + 1, MAX_RECORDED_ATTEMPTS)} 行</h2>
             </div>
             <span className='row-counter'>
@@ -197,7 +202,6 @@ export default function Home() {
         <section className='panel analysis-panel' aria-labelledby='analysis-title'>
           <div className='panel-heading'>
             <div>
-              <p className='section-kicker'>即时推断</p>
               <h2 id='analysis-title'>{candidates.length === 0 ? '记录有矛盾' : isSolved ? '答案已确定' : '剩余候选'}</h2>
             </div>
             <strong className={candidates.length === 0 ? 'candidate-count error' : 'candidate-count'}>{candidates.length}</strong>
