@@ -1,12 +1,11 @@
 'use client'
 
 import Link from 'next/link'
-import type { CSSProperties } from 'react'
 import { useMemo, useState, useSyncExternalStore } from 'react'
 
-import { CodeChips } from './components/gem-ui'
+import { CodeChips, GemInput, ResultIcons } from './components/gem-ui'
 import { getAttemptsSnapshot, getServerAttemptsSnapshot, MAX_RECORDED_ATTEMPTS, parseAttemptsSnapshot, saveAttempts, subscribeToAttempts } from './lib/attempt-storage'
-import { COLORS, codeKey, findBestRecommendation, findMatchingCodes, type ColorId, type Score } from './lib/tribute'
+import { codeKey, findBestRecommendation, findMatchingCodes, type ColorId, type Score } from './lib/tribute'
 
 function CountOptions({
   label,
@@ -91,10 +90,6 @@ export default function Home() {
               做题
             </Link>
           </nav>
-          <span className='save-status'>
-            <i aria-hidden='true' />
-            本机保存
-          </span>
           <button type='button' className='quiet-button' onClick={reset}>
             新一题
           </button>
@@ -107,7 +102,6 @@ export default function Home() {
             <p className='section-kicker'>已记录</p>
             <h2 id='history-title'>推理记录</h2>
           </div>
-          <p>结果自动保存在这台设备的浏览器中。</p>
         </div>
         {attempts.length === 0 ? (
           <div className='history-empty'>还没有记录。可以先照默认的“红 红 蓝 蓝”提交第一行。</div>
@@ -117,17 +111,17 @@ export default function Home() {
               <li key={attempt.id}>
                 <span className='attempt-number'>{index + 1}</span>
                 <CodeChips code={attempt.guess} small />
-                <span className='result-summary exact' title='完全正确'>
-                  <b className='result-icon exact'>◎</b>
-                  <strong>{attempt.exact}</strong>
+                <span className='history-row-actions'>
+                  <ResultIcons value={{ exact: attempt.exact, misplaced: attempt.misplaced }} compact />
+                  <button
+                    type='button'
+                    className='delete-button'
+                    onClick={() => saveAttempts(attempts.filter((item) => item.id !== attempt.id))}
+                    aria-label={`删除第${index + 1}行`}
+                  >
+                    删除
+                  </button>
                 </span>
-                <span className='result-summary misplaced' title='颜色正确但位置错误'>
-                  <b className='result-icon misplaced'>◉</b>
-                  <strong>{attempt.misplaced}</strong>
-                </span>
-                <button type='button' className='delete-button' onClick={() => saveAttempts(attempts.filter((item) => item.id !== attempt.id))} aria-label={`删除第${index + 1}行`}>
-                  删除
-                </button>
               </li>
             ))}
           </ol>
@@ -147,68 +141,41 @@ export default function Home() {
           </div>
 
           <div className='entry-selection-row'>
-            <div className='positions practice-choice-grid' aria-label='选择四个颜色'>
-              {draftGuess.map((selectedColor, position) => (
-                <div className='position-picker practice-position' role='group' aria-label={`位置 ${position + 1}`} key={position}>
-                  <p className='position-label'>位置 {position + 1}</p>
-                  <div className='color-options practice-color-options'>
-                    {COLORS.map((color) => (
-                      <button
-                        type='button'
-                        key={color.id}
-                        className={selectedColor === color.id ? 'color-option selected' : 'color-option'}
-                        style={{ '--swatch': color.swatch, '--edge': color.edge, '--gem-image': `url(${color.image})` } as CSSProperties}
-                        aria-pressed={selectedColor === color.id}
-                        aria-label={color.name}
-                        onClick={() => setDraftGuess((current) => current.map((value, index) => (index === position ? color.id : value)) as ColorId[])}
-                      >
-                        <span aria-hidden='true' />
-                      </button>
+            <GemInput value={draftGuess} onChange={setDraftGuess} label='选择四个颜色' />
+            <div className='selected-feedback' aria-label={`已选结果：完全正确 ${draftScore.exact}，颜色对位置错 ${draftScore.misplaced}`}>
+              <p>选择结果</p>
+              <div className='feedback-input-row'>
+                <div className='feedback-result exact' aria-label={`完全正确 ${draftScore.exact} 个`}>
+                  <span className='result-icon-list' aria-hidden='true'>
+                    {Array.from({ length: draftScore.exact }, (_, index) => (
+                      <b className='result-icon exact' key={index}>
+                        ◎
+                      </b>
                     ))}
-                  </div>
+                  </span>
                 </div>
-              ))}
+                <CountOptions label='完全正确' value={draftScore.exact} onChange={(value) => setScore('exact', value)} tone='exact' maximum={4 - draftScore.misplaced} />
+              </div>
+              <div className='feedback-input-row'>
+                <div className='feedback-result misplaced' aria-label={`颜色对位置错 ${draftScore.misplaced} 个`}>
+                  <span className='result-icon-list' aria-hidden='true'>
+                    {Array.from({ length: draftScore.misplaced }, (_, index) => (
+                      <b className='result-icon misplaced' key={index}>
+                        ◉
+                      </b>
+                    ))}
+                  </span>
+                </div>
+                <CountOptions
+                  label='颜色对位置错'
+                  value={draftScore.misplaced}
+                  onChange={(value) => setScore('misplaced', value)}
+                  tone='misplaced'
+                  maximum={4 - draftScore.exact}
+                />
+              </div>
             </div>
             <div className='score-controls'>
-              <div className='selected-score' aria-label={`已选结果：完全正确 ${draftScore.exact}，颜色对位置错 ${draftScore.misplaced}`}>
-                <div className='selected-gems'>
-                  <p>宝石选择结果</p>
-                  <CodeChips code={draftGuess} small />
-                </div>
-                <div className='selected-feedback'>
-                  <p>结果选择结果</p>
-                  <div className='feedback-input-row'>
-                    <div className='feedback-result exact' aria-label={`完全正确 ${draftScore.exact} 个`}>
-                      <span className='result-icon-list' aria-hidden='true'>
-                        {Array.from({ length: draftScore.exact }, (_, index) => (
-                          <b className='result-icon exact' key={index}>
-                            ◎
-                          </b>
-                        ))}
-                      </span>
-                    </div>
-                    <CountOptions label='完全正确数量' value={draftScore.exact} onChange={(value) => setScore('exact', value)} tone='exact' maximum={4 - draftScore.misplaced} />
-                  </div>
-                  <div className='feedback-input-row'>
-                    <div className='feedback-result misplaced' aria-label={`颜色对位置错 ${draftScore.misplaced} 个`}>
-                      <span className='result-icon-list' aria-hidden='true'>
-                        {Array.from({ length: draftScore.misplaced }, (_, index) => (
-                          <b className='result-icon misplaced' key={index}>
-                            ◉
-                          </b>
-                        ))}
-                      </span>
-                    </div>
-                    <CountOptions
-                      label='颜色对位置错数量'
-                      value={draftScore.misplaced}
-                      onChange={(value) => setScore('misplaced', value)}
-                      tone='misplaced'
-                      maximum={4 - draftScore.exact}
-                    />
-                  </div>
-                </div>
-              </div>
               <button type='button' className='primary-button' onClick={addAttempt} disabled={tooManyRows}>
                 记录这一行
               </button>
@@ -263,11 +230,6 @@ export default function Home() {
           {candidates.length > 24 && <p className='candidate-hint'>候选较多时先使用推荐下一手，结果会大幅缩小范围。</p>}
         </section>
       </div>
-
-      <details className='method-note'>
-        <summary>它是怎么推断的？</summary>
-        <p>工具枚举六种颜色组成的所有四位排列（允许重复），仅保留与每一行两个数量都一致的答案。推荐下一手会优先让最难分辨的分支也尽可能小。</p>
-      </details>
 
       {showConflict && (
         <div className='conflict-backdrop' role='presentation' onClick={() => setShowConflict(false)}>

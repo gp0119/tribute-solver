@@ -4,7 +4,6 @@ export type GemColor = {
   id: ColorId;
   name: string;
   swatch: string;
-  edge: string;
   image: string;
 };
 
@@ -23,12 +22,12 @@ export type Recommendation = {
 };
 
 export const COLORS: GemColor[] = [
-  { id: 0, name: '红', swatch: '#bc3938', edge: '#792321', image: '/redgem.png' },
-  { id: 1, name: '蓝', swatch: '#3571b8', edge: '#194170', image: '/bluegem.png' },
-  { id: 2, name: '紫', swatch: '#8754a4', edge: '#512e6d', image: '/purplegem.png' },
-  { id: 3, name: '橙', swatch: '#d58b35', edge: '#8d4e13', image: '/orangegem.png' },
-  { id: 4, name: '黄', swatch: '#d6bc3c', edge: '#877317', image: '/yellowgem.png' },
-  { id: 5, name: '绿', swatch: '#3e9b67', edge: '#1f5b3d', image: '/greengem.png' },
+  { id: 0, name: '红', swatch: '#bc3938', image: '/redgem.png' },
+  { id: 1, name: '蓝', swatch: '#3571b8', image: '/bluegem.png' },
+  { id: 2, name: '紫', swatch: '#8754a4', image: '/purplegem.png' },
+  { id: 3, name: '橙', swatch: '#d58b35', image: '/orangegem.png' },
+  { id: 4, name: '黄', swatch: '#d6bc3c', image: '/yellowgem.png' },
+  { id: 5, name: '绿', swatch: '#3e9b67', image: '/greengem.png' },
 ];
 
 export const COLOR_BY_ID = new Map(COLORS.map((color) => [color.id, color]));

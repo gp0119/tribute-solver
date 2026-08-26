@@ -1,11 +1,10 @@
 'use client';
 
 import Link from 'next/link';
-import type { CSSProperties } from 'react';
 import { useState } from 'react';
 
-import { CodeChips, ResultIcons } from '../components/gem-ui';
-import { COLORS, randomCode, score, type ColorId, type Score } from '../lib/tribute';
+import { CodeChips, GemInput, ResultIcons } from '../components/gem-ui';
+import { randomCode, score, type ColorId, type Score } from '../lib/tribute';
 
 type PracticeAttempt = { id: number; guess: ColorId[]; result: Score };
 
@@ -88,34 +87,10 @@ export default function PracticePage() {
           </div>
         ) : (
           <>
-            <p className="practice-prompt">为每个位置选一个颜色，然后提交这一手。</p>
-            <div className="practice-choice-grid" aria-label="选择四个颜色">
-              {guess.map((selectedColor, position) => (
-                <section className="practice-position" key={position} aria-label={`位置 ${position + 1}`}>
-                  <p className="position-label">位置 {position + 1}</p>
-                  <div className="color-options practice-color-options">
-                    {COLORS.map((color) => (
-                      <button
-                        type="button"
-                        key={color.id}
-                        className={selectedColor === color.id ? 'color-option selected' : 'color-option'}
-                        aria-pressed={selectedColor === color.id}
-                        aria-label={color.name}
-                        onClick={() => setGuess((current) => current.map((value, index) => (index === position ? color.id : value)) as ColorId[])}
-                        style={{ '--swatch': color.swatch, '--gem-image': `url(${color.image})` } as CSSProperties}
-                      >
-                        <span aria-hidden="true" />
-                      </button>
-                    ))}
-                  </div>
-                </section>
-              ))}
-            </div>
-            <div className="practice-submit-row">
-              <div className="practice-current-guess"><span>当前选择</span><CodeChips code={guess} small /></div>
-              <div className="practice-actions">
-                <button type="button" className="primary-button" onClick={submitGuess}>提交这一手</button>
-              </div>
+            <p className="practice-prompt">点击一格选择宝石，选中后会自动跳到下一格。</p>
+            <div className="practice-entry-row">
+              <GemInput value={guess} onChange={setGuess} label="选择四个颜色" />
+              <button type="button" className="primary-button" onClick={submitGuess}>提交这一手</button>
             </div>
           </>
         )}

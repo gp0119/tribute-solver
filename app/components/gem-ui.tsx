@@ -1,6 +1,67 @@
-import type { CSSProperties } from 'react';
+import { useEffect, useRef, useState, type CSSProperties } from 'react';
 
-import { COLOR_BY_ID, type ColorId, type Score } from '../lib/tribute';
+import { COLORS, COLOR_BY_ID, type ColorId, type Score } from '../lib/tribute';
+
+export function GemInput({ value, onChange, label }: { value: ColorId[]; onChange: (value: ColorId[]) => void; label: string }) {
+  const [activePosition, setActivePosition] = useState<number | null>(null);
+  const rootRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const closePicker = (event: PointerEvent) => {
+      if (!rootRef.current?.contains(event.target as Node)) setActivePosition(null);
+    };
+    document.addEventListener('pointerdown', closePicker);
+    return () => document.removeEventListener('pointerdown', closePicker);
+  }, []);
+
+  const chooseColor = (colorId: ColorId) => {
+    if (activePosition === null) return;
+    onChange(value.map((current, index) => (index === activePosition ? colorId : current)) as ColorId[]);
+    setActivePosition(activePosition === value.length - 1 ? null : activePosition + 1);
+  };
+
+  return (
+    <div className="gem-input" aria-label={label} ref={rootRef}>
+      <div className="gem-input-slots">
+        {value.map((colorId, position) => {
+          const color = COLOR_BY_ID.get(colorId)!;
+          const active = activePosition === position;
+          return (
+            <button
+              type="button"
+              className={active ? 'gem-input-slot active' : 'gem-input-slot'}
+              style={{ '--swatch': color.swatch, '--gem-image': `url(${color.image})` } as CSSProperties}
+              aria-expanded={active}
+              aria-label={`位置 ${position + 1}，当前${color.name}色`}
+              key={position}
+              onClick={() => setActivePosition(position)}
+            >
+              <span aria-hidden="true" />
+            </button>
+          );
+        })}
+      </div>
+
+      {activePosition !== null && (
+        <div className="gem-picker" role="group" aria-label={`为位置 ${activePosition + 1} 选择颜色`}>
+          {COLORS.map((color) => (
+            <button
+              type="button"
+              className="color-option"
+              style={{ '--gem-image': `url(${color.image})` } as CSSProperties}
+              aria-pressed={value[activePosition] === color.id}
+              aria-label={color.name}
+              key={color.id}
+              onClick={() => chooseColor(color.id)}
+            >
+              <span aria-hidden="true" />
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
 
 export function ColorChip({ colorId, small = false }: { colorId: ColorId; small?: boolean }) {
   const color = COLOR_BY_ID.get(colorId)!;
