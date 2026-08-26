@@ -5,7 +5,7 @@ export type GemColor = {
   name: string;
   swatch: string;
   edge: string;
-  spriteTileX: string;
+  image: string;
 };
 
 export type Score = { exact: number; misplaced: number };
@@ -23,12 +23,12 @@ export type Recommendation = {
 };
 
 export const COLORS: GemColor[] = [
-  { id: 0, name: '红', swatch: '#bc3938', edge: '#792321', spriteTileX: '-358px' },
-  { id: 1, name: '蓝', swatch: '#3571b8', edge: '#194170', spriteTileX: '-431px' },
-  { id: 2, name: '紫', swatch: '#8754a4', edge: '#512e6d', spriteTileX: '-505px' },
-  { id: 3, name: '橙', swatch: '#d58b35', edge: '#8d4e13', spriteTileX: '-579px' },
-  { id: 4, name: '黄', swatch: '#d6bc3c', edge: '#877317', spriteTileX: '-653px' },
-  { id: 5, name: '绿', swatch: '#3e9b67', edge: '#1f5b3d', spriteTileX: '-727px' },
+  { id: 0, name: '红', swatch: '#bc3938', edge: '#792321', image: '/redgem.png' },
+  { id: 1, name: '蓝', swatch: '#3571b8', edge: '#194170', image: '/bluegem.png' },
+  { id: 2, name: '紫', swatch: '#8754a4', edge: '#512e6d', image: '/purplegem.png' },
+  { id: 3, name: '橙', swatch: '#d58b35', edge: '#8d4e13', image: '/orangegem.png' },
+  { id: 4, name: '黄', swatch: '#d6bc3c', edge: '#877317', image: '/yellowgem.png' },
+  { id: 5, name: '绿', swatch: '#3e9b67', edge: '#1f5b3d', image: '/greengem.png' },
 ];
 
 export const COLOR_BY_ID = new Map(COLORS.map((color) => [color.id, color]));

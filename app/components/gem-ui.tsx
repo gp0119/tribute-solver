@@ -5,9 +5,8 @@ import { COLOR_BY_ID, type ColorId, type Score } from '../lib/tribute';
 export function ColorChip({ colorId, small = false }: { colorId: ColorId; small?: boolean }) {
   const color = COLOR_BY_ID.get(colorId)!;
   return (
-    <span className={small ? 'color-chip color-chip-small' : 'color-chip'}>
-      <span aria-hidden="true" className="color-swatch" style={{ '--sprite-tile-x': color.spriteTileX } as CSSProperties} />
-      <b>{color.name}</b>
+    <span className={small ? 'color-chip color-chip-small' : 'color-chip'} role="img" aria-label={color.name}>
+      <span aria-hidden="true" className="color-swatch" style={{ '--gem-image': `url(${color.image})` } as CSSProperties} />
     </span>
   );
 }

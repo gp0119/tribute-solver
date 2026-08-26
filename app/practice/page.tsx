@@ -7,10 +7,9 @@ import { useState } from 'react';
 import { CodeChips, ResultIcons } from '../components/gem-ui';
 import { COLORS, randomCode, score, type ColorId, type Score } from '../lib/tribute';
 
-type PracticeAttempt = { id: number; guess: ColorId[]; result: Score; answerRevealed: boolean };
+type PracticeAttempt = { id: number; guess: ColorId[]; result: Score };
 
 const DEFAULT_GUESS: ColorId[] = [0, 0, 1, 1];
-const MAX_PRACTICE_ATTEMPTS = 7;
 
 export default function PracticePage() {
   const [answer, setAnswer] = useState<ColorId[]>(() => randomCode());
@@ -20,8 +19,7 @@ export default function PracticePage() {
 
   const lastAttempt = attempts.at(-1);
   const solved = lastAttempt?.result.exact === 4;
-  const outOfTurns = lastAttempt?.answerRevealed === true;
-  const finished = Boolean(solved || outOfTurns || answerVisible);
+  const finished = Boolean(solved || answerVisible);
 
   const submitGuess = () => {
     if (finished) return;
@@ -30,7 +28,6 @@ export default function PracticePage() {
       id: Date.now(),
       guess: [...guess],
       result,
-      answerRevealed: current.length === MAX_PRACTICE_ATTEMPTS - 1 && result.exact !== 4,
     }]);
   };
 
@@ -61,7 +58,7 @@ export default function PracticePage() {
 
       <section className="notice practice-notice" aria-label="做题规则">
         <span className="notice-mark">!</span>
-        <p>前六次失败会保留提示；第七次仍失败则公布答案。<strong>两种图标只表示数量，不对应某个位置。</strong></p>
+        <p>猜错后会保留提示，可不限次数继续猜测，直到答对。<strong>两种图标只表示数量，不对应某个位置。</strong></p>
       </section>
 
       <section className="rules-card" aria-labelledby="rules-title">
@@ -78,13 +75,13 @@ export default function PracticePage() {
 
       <section className="panel practice-panel" aria-labelledby="practice-title">
         <div className="panel-heading practice-heading">
-          <div><p className="section-kicker">直接做题</p><h2 id="practice-title">第 {Math.min(attempts.length + 1, MAX_PRACTICE_ATTEMPTS)} 次猜测</h2></div>
-          <span className="row-counter">{attempts.length}/{MAX_PRACTICE_ATTEMPTS}</span>
+          <div><p className="section-kicker">直接做题</p><h2 id="practice-title">第 {attempts.length + 1} 次猜测</h2></div>
+          <span className="row-counter">{attempts.length}</span>
         </div>
 
         {finished ? (
-          <div className={solved ? 'practice-finish solved' : outOfTurns ? 'practice-finish failed' : 'practice-finish revealed'}>
-            <p className="practice-finish-title">{solved ? '答对了！四个位置都正确。' : outOfTurns ? '本题次数已用完。' : '已显示本题答案。'}</p>
+          <div className={solved ? 'practice-finish solved' : 'practice-finish revealed'}>
+            <p className="practice-finish-title">{solved ? '答对了！四个位置都正确。' : '已显示本题答案。'}</p>
             <p>本题答案</p>
             <CodeChips code={answer} />
             <button type="button" className="secondary-button" onClick={newQuestion}>开始下一题</button>
@@ -103,11 +100,11 @@ export default function PracticePage() {
                         key={color.id}
                         className={selectedColor === color.id ? 'color-option selected' : 'color-option'}
                         aria-pressed={selectedColor === color.id}
+                        aria-label={color.name}
                         onClick={() => setGuess((current) => current.map((value, index) => (index === position ? color.id : value)) as ColorId[])}
-                        style={{ '--swatch': color.swatch, '--sprite-tile-x': color.spriteTileX } as CSSProperties}
+                        style={{ '--swatch': color.swatch, '--gem-image': `url(${color.image})` } as CSSProperties}
                       >
                         <span aria-hidden="true" />
-                        <b>{color.name}</b>
                       </button>
                     ))}
                   </div>
@@ -127,7 +124,7 @@ export default function PracticePage() {
       <section className="history-section practice-history" aria-labelledby="practice-history-title">
         <div className="history-heading">
           <div><p className="section-kicker">本题记录</p><h2 id="practice-history-title">猜测结果</h2></div>
-          <p>{attempts.length === 0 ? '提交后会立即显示游戏图标。' : `${attempts.length} / ${MAX_PRACTICE_ATTEMPTS} 次`}</p>
+          <p>{attempts.length === 0 ? '提交后会立即显示游戏图标。' : `${attempts.length} 次`}</p>
         </div>
         {attempts.length === 0 ? (
           <div className="history-empty">还没有猜测。选好四个颜色后，点击“提交这一手”。</div>
@@ -137,11 +134,7 @@ export default function PracticePage() {
               <li key={attempt.id}>
                 <span className="attempt-number">{index + 1}</span>
                 <CodeChips code={attempt.guess} small />
-                {attempt.answerRevealed ? (
-                  <span className="practice-result-icons" aria-label="第七次失败，答案已公布"><i className="no-result-mark">公布答案</i></span>
-                ) : (
-                  <ResultIcons value={attempt.result} />
-                )}
+                <ResultIcons value={attempt.result} />
               </li>
             ))}
           </ol>
