@@ -1,0 +1,22 @@
+{
+  "playwrightVersion": "1.63.0-alpha-2026-08-05",
+  "playwrightLib": "/private/var/folders/xz/br_46ncd4k5_vdzvz5wdbnlr0000gn/T/cursor-sandbox-cache/9a7a71e3154a957d4503614097ae9cd4/npm/_npx/31e32ef8478fbf80/node_modules/playwright-core",
+  "title": "default",
+  "browser": {
+    "guid": "browser@29df83cf084ac38d74ab6433ac377539",
+    "browserName": "chromium",
+    "launchOptions": {
+      "channel": "chrome",
+      "args": [
+        "--disable-blink-features=AutomationControlled"
+      ],
+      "ignoreAllDefaultArgs": false,
+      "handleSIGINT": false,
+      "handleSIGTERM": false,
+      "headless": true,
+      "tracesDir": "/Users/gp/personal/tribute-solver/.playwright-cli/traces",
+      "chromiumSandbox": true
+    }
+  },
+  "endpoint": "/var/folders/xz/br_46ncd4k5_vdzvz5wdbnlr0000gn/T/pw-4af17906/browser/browser-29df83.sock"
+}

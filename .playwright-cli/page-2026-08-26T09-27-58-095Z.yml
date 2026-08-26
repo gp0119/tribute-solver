@@ -1,0 +1,52 @@
+- generic [active] [ref=e1]:
+  - main [ref=e2]:
+    - generic [ref=e3]:
+      - generic [ref=e4]:
+        - generic [ref=e5]: ✦
+        - paragraph [ref=e6]: DON'T STARVE TOGETHER · MEDAL MOD
+        - heading "奉纳符做题" [level=1] [ref=e7]
+        - paragraph [ref=e8]: 网页随机出题，直接按游戏规则给出两种图标结果。
+      - generic [ref=e9]:
+        - navigation "页面导航" [ref=e10]:
+          - link "推演器" [ref=e11] [cursor=pointer]:
+            - /url: /
+          - link "做题" [ref=e12] [cursor=pointer]:
+            - /url: /practice
+        - button "换一题" [ref=e13] [cursor=pointer]
+    - region [ref=e14]:
+      - heading "游戏规则" [level=2] [ref=e15]
+      - list [ref=e16]:
+        - listitem [ref=e17]: ❯ 答案由 4 个备选颜色随机排列组成，可以重复。
+        - listitem [ref=e18]: ❯ 根据每次记录，推理颜色种类和排列顺序。
+        - listitem [ref=e19]: ❯ 两种图标只表示数量，没有位置映射关系。
+        - listitem [ref=e20]:
+          - text: ❯
+          - generic [ref=e21]: ◎
+          - text: 表示“颜色和位置都正确”的数量。
+        - listitem [ref=e22]:
+          - text: ❯
+          - generic [ref=e23]: ◉
+          - text: 表示“颜色正确但位置错误”的数量。
+    - region [ref=e24]:
+      - generic [ref=e25]:
+        - heading "猜测结果" [level=2] [ref=e26]
+        - paragraph [ref=e27]: 提交后会立即显示游戏图标。
+      - generic [ref=e28]: 还没有猜测。选好四个颜色后，点击“提交这一手”。
+      - generic [ref=e29]:
+        - generic [ref=e30]: 想直接结束本题？
+        - button "显示答案" [ref=e31] [cursor=pointer]
+    - region [ref=e32]:
+      - generic [ref=e33]:
+        - generic [ref=e34]:
+          - heading "第 1 次猜测" [level=2] [ref=e35]
+          - paragraph [ref=e36]: 点击一格选择宝石，选中后会自动跳到下一格。
+        - generic [ref=e37]: "0"
+      - generic [ref=e38]:
+        - generic "选择四个颜色" [ref=e39]:
+          - generic [ref=e40]:
+            - button "位置 1，当前红色" [ref=e41]
+            - button "位置 2，当前红色" [ref=e43]
+            - button "位置 3，当前蓝色" [ref=e45]
+            - button "位置 4，当前蓝色" [ref=e47]
+        - button "提交这一手" [ref=e49] [cursor=pointer]
+  - button "Open Next.js Dev Tools" [ref=e55] [cursor=pointer]

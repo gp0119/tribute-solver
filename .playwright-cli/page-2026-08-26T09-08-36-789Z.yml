@@ -1,0 +1,53 @@
+- generic [active] [ref=e1]:
+  - button "Open Next.js Dev Tools" [ref=e77] [cursor=pointer]
+  - alert [ref=e94]
+  - main [ref=e124]:
+    - generic [ref=e125]:
+      - generic [ref=e126]:
+        - generic [ref=e127]: ✦
+        - paragraph [ref=e128]: DON'T STARVE TOGETHER · MEDAL MOD
+        - heading "奉纳符做题" [level=1] [ref=e129]
+        - paragraph [ref=e130]: 网页随机出题，直接按游戏规则给出两种图标结果。
+      - generic [ref=e131]:
+        - navigation "页面导航" [ref=e132]:
+          - link "推演器" [ref=e133] [cursor=pointer]:
+            - /url: /
+          - link "做题" [ref=e134] [cursor=pointer]:
+            - /url: /practice
+        - button "换一题" [ref=e135] [cursor=pointer]
+    - region [ref=e136]:
+      - heading "游戏规则" [level=2] [ref=e137]
+      - list [ref=e138]:
+        - listitem [ref=e139]: ❯ 答案由 4 个备选颜色随机排列组成，可以重复。
+        - listitem [ref=e140]: ❯ 根据每次记录，推理颜色种类和排列顺序。
+        - listitem [ref=e141]: ❯ 两种图标只表示数量，没有位置映射关系。
+        - listitem [ref=e142]:
+          - text: ❯
+          - generic [ref=e143]: ◎
+          - text: 表示“颜色和位置都正确”的数量。
+        - listitem [ref=e144]:
+          - text: ❯
+          - generic [ref=e145]: ◉
+          - text: 表示“颜色正确但位置错误”的数量。
+    - region [ref=e146]:
+      - generic [ref=e147]:
+        - heading "猜测结果" [level=2] [ref=e148]
+        - paragraph [ref=e149]: 提交后会立即显示游戏图标。
+      - generic [ref=e150]: 还没有猜测。选好四个颜色后，点击“提交这一手”。
+      - generic [ref=e151]:
+        - generic [ref=e152]: 想直接结束本题？
+        - button "显示答案" [ref=e153] [cursor=pointer]
+    - region [ref=e154]:
+      - generic [ref=e155]:
+        - generic [ref=e156]:
+          - heading "第 1 次猜测" [level=2] [ref=e157]
+          - paragraph [ref=e158]: 点击一格选择宝石，选中后会自动跳到下一格。
+        - generic [ref=e159]: "0"
+      - generic [ref=e160]:
+        - generic "选择四个颜色" [ref=e161]:
+          - generic [ref=e162]:
+            - button "位置 1，当前红色" [ref=e163]
+            - button "位置 2，当前红色" [ref=e165]
+            - button "位置 3，当前蓝色" [ref=e167]
+            - button "位置 4，当前蓝色" [ref=e169]
+        - button "提交这一手" [ref=e171] [cursor=pointer]
