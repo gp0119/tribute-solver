@@ -11,13 +11,6 @@ import { randomCode, score, type ColorId, type Score } from '../lib/tribute'
 type PracticeAttempt = { id: number; guess: ColorId[]; result: Score }
 
 const DEFAULT_GUESS: ColorId[] = [0, 0, 1, 1]
-const headingClass = 'mt-1.5 mb-0 text-2xl font-black tracking-[0.035em] text-[#4b311e] max-[560px]:text-xl'
-const panelClass = 'relative rounded-2xl border border-[#c9a96d] bg-[rgb(255_247_226/0.84)] p-6 max-[560px]:rounded-xl max-[560px]:px-3 max-[560px]:py-4'
-const sectionClass = 'rounded-2xl border border-[#c9a96d] bg-[rgb(255_247_226/0.84)] px-6 py-5.5 max-[560px]:rounded-xl max-[560px]:px-3 max-[560px]:py-4'
-const primaryButtonClass =
-  'w-full cursor-pointer rounded-lg border border-[#702c21] bg-[linear-gradient(#c45b42,#903528)] px-3.5 py-3 font-extrabold tracking-[0.04em] text-[#fff7dc] transition-[filter,transform] duration-150 hover:not-disabled:-translate-y-px hover:not-disabled:brightness-[1.06] disabled:cursor-not-allowed disabled:opacity-50 focus-visible:outline-3 focus-visible:outline-[#2f8ba0] focus-visible:outline-offset-3'
-const secondaryButtonClass =
-  'relative z-1 cursor-pointer rounded-lg border border-[#8eaa77] bg-[linear-gradient(#fffef7,#edf2df)] px-3.5 py-2.5 text-sm font-extrabold text-[#46633b] transition-[transform,filter,box-shadow] duration-150 hover:-translate-y-px hover:brightness-[1.04] focus-visible:outline-3 focus-visible:outline-[#2f8ba0] focus-visible:outline-offset-3'
 
 export default function PracticePage() {
   const [answer, setAnswer] = useState<ColorId[]>(() => randomCode())
@@ -43,61 +36,35 @@ export default function PracticePage() {
   }
 
   return (
-    <main className='relative isolate mx-auto w-[min(72rem,calc(100%---spacing(8)))] py-11 pb-16 max-[800px]:w-[calc(100%---spacing(5))] max-[800px]:py-6.5 max-[800px]:pb-10 max-[800px]:before:hidden max-[800px]:after:hidden max-[560px]:w-[calc(100%---spacing(4))] max-[560px]:py-4 max-[560px]:pb-7'>
-      <header className='relative mb-6 flex items-start justify-between gap-6 px-1.5 pb-6.5 max-[800px]:flex-col max-[800px]:gap-3.5 max-[560px]:mb-3.5 max-[560px]:gap-2.5 max-[560px]:px-0.5 max-[560px]:pb-4.5'>
-        <div className='relative pl-6.5 max-[560px]:pl-0 max-[560px]:text-center'>
+    <main className='game-shell game-shell--practice'>
+      <header className='game-header'>
+        <div className='game-brand'>
           <span className='absolute top-0.5 left-0 text-base text-[#9f7135] [text-shadow:0_1px_#fff1cf] max-[560px]:hidden' aria-hidden='true'>
             ✦
           </span>
-          <p className='m-0 text-xs font-extrabold tracking-[0.12em] text-[#95692f]'>DON&apos;T STARVE TOGETHER · MEDAL MOD</p>
-          <h1 className='mt-1.5 mb-2 text-[clamp(2.15rem,5vw,3.35rem)] font-black tracking-[0.075em] text-[#3f2919] [text-shadow:0_2px_0_#ffeac0,0_3px_5px_rgb(81_47_21/0.12)] max-[800px]:text-4xl max-[560px]:mt-1.5 max-[560px]:mb-1.5 max-[560px]:text-3xl max-[560px]:tracking-[0.045em] max-[560px]:text-center'>
-            奉纳符做题
-          </h1>
-          <p className='m-0 text-base text-[#705c47] max-[560px]:mx-auto max-[560px]:max-w-124 max-[560px]:text-center max-[560px]:text-sm max-[560px]:leading-6'>
-            网页随机出题，直接按游戏规则给出两种图标结果。
-          </p>
+          <p className='game-eyebrow'>DON&apos;T STARVE TOGETHER · MEDAL MOD</p>
+          <div className='flex items-center gap-2.5'>
+            <Image className='game-divider-icon game-divider-icon--large' src='/tribute-box.png' alt='' width={64} height={64} />
+            <h1 className='game-title'>奉纳符做题</h1>
+          </div>
+          <p className='game-subtitle'>网页随机出题，直接按游戏规则给出两种图标结果。</p>
         </div>
-        <div className='flex items-center gap-3 pt-2 max-[800px]:w-full max-[800px]:justify-between max-[800px]:pt-0 max-[560px]:grid max-[560px]:grid-cols-1 max-[560px]:gap-2'>
-          <nav
-            className='inline-flex items-center gap-1 rounded-lg border border-[rgb(165_119_55/0.42)] bg-[rgb(255_249_232/0.58)] p-1 shadow-[inset_0_1px_rgb(255_255_255/0.62)] max-[560px]:grid max-[560px]:grid-cols-2'
-            aria-label='页面导航'
-          >
-            <Link
-              className='rounded-md px-2.5 py-1.5 text-xs leading-none font-black text-[#73532a] transition-[background,color,transform] duration-150 hover:bg-[rgb(236_215_173/0.72)] hover:text-[#4f351b] max-[560px]:px-2.5 max-[560px]:py-2 max-[560px]:text-center'
-              href='/'
-            >
+        <div className='game-actions game-actions--practice'>
+          <nav className='game-nav' aria-label='页面导航'>
+            <Link className='game-nav-link' href='/'>
               推演器
             </Link>
-            <Link
-              className='rounded-md bg-[linear-gradient(#a96c2a,#754317)] px-2.5 py-1.5 text-xs leading-none font-black text-[#fff6db] shadow-[inset_0_1px_rgb(255_255_255/0.3)] max-[560px]:px-2.5 max-[560px]:py-2 max-[560px]:text-center'
-              href='/practice'
-            >
+            <Link className='game-nav-link game-nav-link--active' href='/practice'>
               做题
             </Link>
           </nav>
-          <button
-            type='button'
-            className='cursor-pointer rounded-lg border border-[#ad7d3b] bg-[linear-gradient(#fff9e8,#f1deba)] px-4 py-2.5 font-extrabold text-[#684820] shadow-[inset_0_1px_rgb(255_255_255/0.75),0_2px_0_rgb(104_72_32/0.12)] transition-[transform,filter,box-shadow] duration-150 hover:-translate-y-px hover:brightness-[1.04] hover:shadow-[inset_0_1px_rgb(255_255_255/0.8),0_4px_0_rgb(104_72_32/0.13)] focus-visible:outline-3 focus-visible:outline-[#2f8ba0] focus-visible:outline-offset-3 max-[560px]:w-full'
-            onClick={newQuestion}
-          >
+          <button type='button' className='game-action-button game-action-button--practice' onClick={newQuestion}>
             换一题
           </button>
         </div>
       </header>
 
-      <div
-        className="pointer-events-none -mt-4.5 mb-4 flex h-12 items-center justify-center gap-8 opacity-85 before:h-px before:w-[min(18vw,--spacing(36))] before:bg-[linear-gradient(90deg,transparent,rgb(151_103_43/0.56))] before:content-[''] after:h-px after:w-[min(18vw,--spacing(36))] after:scale-x-[-1] after:bg-[linear-gradient(90deg,transparent,rgb(151_103_43/0.56))] after:content-[''] max-[800px]:mb-3 max-[560px]:-mt-3 max-[560px]:mb-2.5 max-[560px]:h-11 max-[560px]:gap-4.5 max-[560px]:before:w-[min(12vw,--spacing(14))] max-[560px]:after:w-[min(12vw,--spacing(14))]"
-        aria-hidden='true'
-      >
-        <Image className='size-11 object-contain drop-shadow-[0_2px_1px_rgb(67_40_20/0.38)] max-[560px]:size-10' src='/tribute-symbol.png' alt='' width={64} height={64} />
-        <Image className='size-14 object-contain drop-shadow-[0_2px_1px_rgb(67_40_20/0.38)] max-[560px]:size-12' src='/tribute-box.png' alt='' width={64} height={64} />
-        <Image className='size-11 object-contain drop-shadow-[0_2px_1px_rgb(67_40_20/0.38)] max-[560px]:size-10' src='/saltfish-statue.png' alt='' width={64} height={64} />
-      </div>
-
-      <section
-        className='mb-5 rounded-xl border border-[#cba665] bg-[linear-gradient(120deg,rgb(255_248_224/0.9),rgb(247_227_184/0.72))] px-5 py-4.5 shadow-[inset_0_1px_rgb(255_255_255/0.72),0_8px_20px_rgb(83_48_18/0.06)] max-[560px]:mb-3 max-[560px]:px-3 max-[560px]:py-3.5'
-        aria-labelledby='rules-title'
-      >
+      <section className='game-rules' aria-labelledby='rules-title'>
         <h2 className='mt-1.5 mb-3 text-xl font-black tracking-[0.035em] text-[#4b311e] max-[560px]:mb-2.5 max-[560px]:text-center' id='rules-title'>
           游戏规则
         </h2>
@@ -120,27 +87,20 @@ export default function PracticePage() {
         </ul>
       </section>
 
-      <section className={cn(sectionClass, 'mt-5 max-[560px]:mt-3')} aria-labelledby='practice-history-title'>
-        <div className='mb-4 flex items-end justify-between gap-4.5 max-[560px]:mb-2.5 max-[560px]:flex-col max-[560px]:items-center max-[560px]:gap-2.5 max-[560px]:text-center'>
-          <h2 className={headingClass} id='practice-history-title'>
+      <section className='game-section mt-5 max-[560px]:mt-3' aria-labelledby='practice-history-title'>
+        <div className='game-section-header'>
+          <h2 className='game-heading' id='practice-history-title'>
             猜测结果
           </h2>
           <p className='m-0 text-sm text-[#80694d]'>{attempts.length === 0 ? '提交后会立即显示游戏图标。' : `${attempts.length} 次`}</p>
         </div>
         {attempts.length === 0 ? (
-          <div className='m-0 rounded-xl border border-dashed border-[#d0af75] bg-[rgb(255_250_238/0.54)] p-3.5 leading-relaxed text-[#795f41] max-[560px]:p-3 max-[560px]:leading-normal max-[560px]:text-center'>
-            还没有猜测。选好四个颜色后，点击“提交这一手”。
-          </div>
+          <div className='game-empty-state'>还没有猜测。选好四个颜色后，点击“提交这一手”。</div>
         ) : (
-          <ol className='m-0 grid list-none gap-2 p-0'>
+          <ol className='game-history-list'>
             {attempts.map((attempt, index) => (
-              <li
-                className='grid grid-cols-[--spacing(8)_minmax(0,1fr)_minmax(--spacing(28),auto)] items-center gap-3 rounded-xl border border-[#dfccaa] bg-[linear-gradient(100deg,rgb(255_253_245/0.84),rgb(247_235_209/0.56))] px-2.5 py-2 shadow-[inset_0_1px_rgb(255_255_255/0.72)] max-[560px]:grid-cols-[1fr_auto_1fr] max-[560px]:gap-1 max-[560px]:px-1.5 max-[560px]:py-2 max-[560px]:*:data-code-chips:justify-self-center max-[560px]:*:data-code-chips:flex-nowrap max-[560px]:*:data-code-chips:gap-px max-[560px]:**:data-color-chip:size-[clamp(--spacing(9),11vw,--spacing(11))] max-[560px]:**:data-result-icons:min-w-0 max-[560px]:**:data-result-icons:justify-center max-[560px]:**:data-result-icons:gap-0.5 max-[560px]:**:data-result-icons:px-1.5 max-[560px]:**:data-result-icons:py-1.5 max-[560px]:**:data-result-icon:size-4'
-                key={attempt.id}
-              >
-                <span className='grid size-7 place-items-center rounded-full border border-[#af7d3e] bg-[radial-gradient(circle_at_35%_30%,#fff2ca,#e5c487)] text-sm font-black text-[#785127] max-[560px]:size-6'>
-                  {index + 1}
-                </span>
+              <li className='practice-history-row' key={attempt.id}>
+                <span className='history-step history-step--compact'>{index + 1}</span>
                 <CodeChips code={attempt.guess} small />
                 <ResultIcons value={attempt.result} />
               </li>
@@ -150,28 +110,22 @@ export default function PracticePage() {
         {!finished && (
           <div className='mt-3 flex items-center justify-center gap-2.5 border-t border-dashed border-[#d8bc85] pt-3 text-xs font-extrabold text-[#7a6042]'>
             <span>想直接结束本题？</span>
-            <button
-              type='button'
-              className='min-h-9 cursor-pointer rounded-lg border border-[#b28a56] bg-[linear-gradient(#fff8e7,#efdcb6)] px-4 text-xs font-black text-[#76522a] shadow-[inset_0_1px_rgb(255_255_255/0.8),0_2px_0_rgb(104_72_32/0.12)] transition-[filter] hover:brightness-[1.04] focus-visible:outline-3 focus-visible:outline-[#2f8ba0] focus-visible:outline-offset-3'
-              onClick={() => setAnswerVisible(true)}
-            >
+            <button type='button' className='reveal-button' onClick={() => setAnswerVisible(true)}>
               显示答案
             </button>
           </div>
         )}
       </section>
 
-      <section className={cn(panelClass, 'mt-6.5 overflow-visible max-[560px]:mt-3')} aria-labelledby='practice-title'>
+      <section className='game-panel mt-6.5 overflow-visible max-[560px]:mt-3' aria-labelledby='practice-title'>
         <div className='mb-4.5 flex items-start justify-between gap-4.5 max-[560px]:mb-3 max-[560px]:items-center max-[560px]:gap-2.5'>
           <div>
-            <h2 className={headingClass} id='practice-title'>
+            <h2 className='game-heading' id='practice-title'>
               第 {attempts.length + 1} 次猜测
             </h2>
             <p className='mt-0 mb-3.5 text-sm text-[#71583d] max-[560px]:mb-2.5 max-[560px]:text-center'>点击一格选择宝石，选中后会自动跳到下一格。</p>
           </div>
-          <span className='grid h-11 min-w-12 place-items-center rounded-lg border border-[#ba8a47] bg-[linear-gradient(135deg,#fae9bd,#e2bd77)] text-xl font-extrabold text-[#70471b] shadow-[inset_0_0_0_2px_rgb(255_248_225/0.53)]'>
-            {attempts.length}
-          </span>
+          <span className='game-step-count'>{attempts.length}</span>
         </div>
 
         {finished ? (
@@ -184,14 +138,14 @@ export default function PracticePage() {
             <p className={cn('m-0 text-base font-black', solved ? 'text-[#375a37]' : 'text-[#68451f]')}>{solved ? '答对了！四个位置都正确。' : '已显示本题答案。'}</p>
             <p className={cn('m-0 text-sm font-black', solved ? 'text-[#526c3f]' : 'text-[#765328]')}>本题答案</p>
             <CodeChips code={answer} />
-            <button type='button' className={secondaryButtonClass} onClick={newQuestion}>
+            <button type='button' className='game-secondary-button' onClick={newQuestion}>
               开始下一题
             </button>
           </div>
         ) : (
           <div className='grid grid-cols-1 justify-items-center gap-4 max-[560px]:gap-2.5'>
             <GemInput value={guess} onChange={setGuess} label='选择四个颜色' centered />
-            <button type='button' className={cn(primaryButtonClass, 'min-h-12 max-w-xl')} onClick={submitGuess}>
+            <button type='button' className='game-primary-button min-h-12 max-w-xl' onClick={submitGuess}>
               提交这一手
             </button>
           </div>
