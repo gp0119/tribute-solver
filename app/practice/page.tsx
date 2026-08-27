@@ -3,6 +3,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
+import confetti from 'canvas-confetti'
 
 import { CodeChips, GemInput, ResultIcons } from '../components/gem-ui'
 import { cn } from '../lib/cn'
@@ -11,6 +12,21 @@ import { randomCode, score, type ColorId, type Score } from '../lib/tribute'
 type PracticeAttempt = { id: number; guess: ColorId[]; result: Score }
 
 const DEFAULT_GUESS: ColorId[] = [0, 0, 1, 1]
+
+function celebrate() {
+  // ponytail: 1.5 秒烟花；需要更强庆典效果时再延长。
+  const end = Date.now() + 1500
+  const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 110, disableForReducedMotion: true }
+
+  const interval = window.setInterval(() => {
+    const timeLeft = end - Date.now()
+    if (timeLeft <= 0) return window.clearInterval(interval)
+    const particleCount = 50 * (timeLeft / 1500)
+
+    confetti({ ...defaults, particleCount, origin: { x: Math.random() * 0.2 + 0.1, y: Math.random() - 0.2 } })
+    confetti({ ...defaults, particleCount, origin: { x: Math.random() * 0.2 + 0.7, y: Math.random() - 0.2 } })
+  }, 250)
+}
 
 export default function PracticePage() {
   const [answer, setAnswer] = useState<ColorId[]>(() => randomCode())
@@ -26,6 +42,7 @@ export default function PracticePage() {
     if (finished) return
     const result = score(guess, answer)
     setAttempts((current) => [...current, { id: Date.now(), guess: [...guess], result }])
+    if (result.exact === 4) celebrate()
   }
 
   const newQuestion = () => {
@@ -114,7 +131,7 @@ export default function PracticePage() {
       </section>
 
       <section className='game-panel mt-6.5 overflow-visible max-[560px]:mt-3' aria-labelledby='practice-title'>
-        <div className='mb-4.5 flex items-start justify-between gap-4.5 max-[560px]:mb-3 max-[560px]:items-center max-[560px]:gap-2.5'>
+        <div className='mb-4.5 flex items-center justify-between gap-4.5 max-[560px]:mb-3 max-[560px]:items-center max-[560px]:gap-2.5'>
           <h2 className='game-heading' id='practice-title'>
             第 {attempts.length + 1} 次猜测
           </h2>

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type CSSProperties } from 'react'
+import { Fragment, useEffect, useRef, useState, type CSSProperties } from 'react'
 
 import { COLORS, COLOR_BY_ID, type ColorId, type Score } from '../lib/tribute'
 import { cn } from '../lib/cn'
@@ -20,7 +20,11 @@ export function GemInput({ value, onChange, label, centered = false }: { value: 
   const chooseColor = (colorId: ColorId) => {
     if (activePosition === null) return
     onChange(value.map((current, index) => (index === activePosition ? colorId : current)) as ColorId[])
-    setActivePosition(activePosition === value.length - 1 ? null : activePosition + 1)
+    setActivePosition(null)
+  }
+
+  const swapAdjacentColors = (position: number) => {
+    onChange(value.map((colorId, index) => (index === position ? value[position + 1] : index === position + 1 ? value[position] : colorId)) as ColorId[])
   }
 
   return (
@@ -36,21 +40,27 @@ export function GemInput({ value, onChange, label, centered = false }: { value: 
           const color = COLOR_BY_ID.get(colorId)!
           const active = activePosition === position
           return (
-            <button
-              type='button'
-              className={cn(
-                'gem-button',
-                active &&
-                  '[background:color-mix(in_srgb,var(--swatch)_24%,#fff4d7)] shadow-[0_4px_10px_color-mix(in_srgb,var(--swatch)_50%,transparent)] -translate-y-0.5 scale-105'
+            <Fragment key={position}>
+              <button
+                type='button'
+                className={cn(
+                  'gem-button',
+                  active &&
+                    '[background:color-mix(in_srgb,var(--swatch)_24%,#fff4d7)] shadow-[0_4px_10px_color-mix(in_srgb,var(--swatch)_50%,transparent)] -translate-y-0.5 scale-105'
+                )}
+                style={{ '--swatch': color.swatch } as CSSProperties}
+                aria-expanded={active}
+                aria-label={`位置 ${position + 1}，当前${color.name}色`}
+                onClick={() => setActivePosition(position)}
+              >
+                <span aria-hidden='true' className='gem-image' style={{ '--gem-image': `url(${color.image})` } as CSSProperties} />
+              </button>
+              {position < value.length - 1 && (
+                <button type='button' className='gem-swap-button' aria-label={`互换位置 ${position + 1} 和 ${position + 2} 的颜色`} onClick={() => swapAdjacentColors(position)}>
+                  <span aria-hidden='true'>⇄</span>
+                </button>
               )}
-              style={{ '--swatch': color.swatch } as CSSProperties}
-              aria-expanded={active}
-              aria-label={`位置 ${position + 1}，当前${color.name}色`}
-              key={position}
-              onClick={() => setActivePosition(position)}
-            >
-              <span aria-hidden='true' className='gem-image' style={{ '--gem-image': `url(${color.image})` } as CSSProperties} />
-            </button>
+            </Fragment>
           )
         })}
       </div>

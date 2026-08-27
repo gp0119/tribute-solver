@@ -139,7 +139,7 @@ export default function Home() {
 
       <div className='grid grid-cols-1 gap-5 max-[560px]:gap-3'>
         <section className='game-panel overflow-visible' aria-labelledby='entry-title'>
-          <div className='flex items-start gap-2.5'>
+          <div className='flex items-center gap-2.5'>
             <h2 className='game-heading' id='entry-title'>
               第 {Math.min(attempts.length + 1, MAX_RECORDED_ATTEMPTS)} 行
             </h2>
@@ -203,7 +203,7 @@ export default function Home() {
         </section>
 
         <section className='game-panel flex min-h-0 flex-col overflow-hidden' aria-labelledby='analysis-title'>
-          <div className='flex items-start justify-between gap-4.5 max-[560px]:items-center max-[560px]:gap-2.5'>
+          <div className='flex items-center justify-between gap-4.5 max-[560px]:items-center max-[560px]:gap-2.5'>
             <h2 className='game-heading' id='analysis-title'>
               {candidates.length === 0 ? '记录有矛盾' : isSolved ? '答案已确定' : '剩余候选'}
             </h2>

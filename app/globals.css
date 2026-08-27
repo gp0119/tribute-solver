@@ -234,6 +234,10 @@
   }
 
   .gem-input-grid {
-    @apply grid grid-cols-[repeat(4,--spacing(18))] gap-5 max-[800px]:grid-cols-[repeat(4,--spacing(16))] max-[800px]:gap-3 max-[560px]:grid-cols-[repeat(4,--spacing(14))] max-[560px]:gap-1.5;
+    @apply grid grid-cols-[--spacing(18)_--spacing(5)_--spacing(18)_--spacing(5)_--spacing(18)_--spacing(5)_--spacing(18)] items-center gap-1 max-[800px]:grid-cols-[--spacing(16)_--spacing(5)_--spacing(16)_--spacing(5)_--spacing(16)_--spacing(5)_--spacing(16)] max-[560px]:grid-cols-[--spacing(14)_--spacing(4)_--spacing(14)_--spacing(4)_--spacing(14)_--spacing(4)_--spacing(14)] max-[560px]:gap-2 max-[360px]:gap-0;
+  }
+
+  .gem-swap-button {
+    @apply z-1 grid size-5 cursor-pointer place-items-center justify-self-center rounded-full border border-[#b58a4f] bg-[linear-gradient(#fff8e7,#e8c98e)] p-0 text-sm leading-none font-black text-[#805723] shadow-[0_1px_2px_rgb(69_42_17/0.18)] transition-[transform,filter] hover:-translate-y-px hover:brightness-[1.06] focus-visible:outline-3 focus-visible:outline-[#2f8ba0] focus-visible:outline-offset-2;
   }
 }
