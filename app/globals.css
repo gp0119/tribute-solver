@@ -62,11 +62,11 @@
   }
 
   .game-action-button {
-    @apply cursor-pointer rounded-lg border border-[#ad7d3b] bg-[linear-gradient(#fff9e8,#f1deba)] px-4 py-2.5 font-extrabold text-[#684820] shadow-[inset_0_1px_rgb(255_255_255/0.75),0_2px_0_rgb(104_72_32/0.12)] transition-[transform,filter,box-shadow] duration-150 hover:-translate-y-px hover:brightness-[1.04] hover:shadow-[inset_0_1px_rgb(255_255_255/0.8),0_4px_0_rgb(104_72_32/0.13)] focus-visible:outline-3 focus-visible:outline-[#2f8ba0] focus-visible:outline-offset-3;
+    @apply cursor-pointer rounded-lg border border-[#ad7d3b] bg-[linear-gradient(#fff9e8,#f1deba)] px-4 py-2.5 font-extrabold text-[#684820]  hover:-translate-y-px hover:brightness-[1.04] focus-visible:outline-3 focus-visible:outline-[#2f8ba0] focus-visible:outline-offset-3;
   }
 
   .game-action-button--solver {
-    @apply max-[560px]:justify-self-end;
+    @apply max-[560px]:w-full;
   }
 
   .game-action-button--practice {
@@ -114,7 +114,7 @@
   }
 
   .game-secondary-button {
-    @apply relative z-1 cursor-pointer rounded-lg border border-[#8eaa77] bg-[linear-gradient(#fffef7,#edf2df)] px-3.5 py-2.5 text-sm font-extrabold text-[#46633b] transition-[transform,filter,box-shadow] duration-150 hover:-translate-y-px hover:brightness-[1.04] focus-visible:outline-3 focus-visible:outline-[#2f8ba0] focus-visible:outline-offset-3;
+    @apply relative z-1 w-full cursor-pointer rounded-lg border border-[#8eaa77] bg-[linear-gradient(#fffef7,#edf2df)] px-3.5 py-2.5 text-sm font-extrabold text-[#46633b] transition-[transform,filter,box-shadow] duration-150 hover:-translate-y-px hover:brightness-[1.04] focus-visible:outline-3 focus-visible:outline-[#2f8ba0] focus-visible:outline-offset-3;
   }
 
   .game-secondary-button--raised {
@@ -134,7 +134,7 @@
   }
 
   .gem-picker {
-    @apply absolute top-[calc(100%+--spacing(2))] left-0 z-10 grid grid-cols-[repeat(6,--spacing(18))] gap-1 rounded-xl bg-[linear-gradient(145deg,#f4e3c1,#ddbd84)] p-2 shadow-[0_10px_24px_rgb(69_42_17/0.24)] max-[800px]:grid-cols-[repeat(6,--spacing(16))] max-[560px]:left-1/2 max-[560px]:grid-cols-[repeat(3,--spacing(14))] max-[560px]:gap-1 max-[560px]:-translate-x-1/2;
+    @apply absolute bottom-[calc(100%+--spacing(2))] z-10 grid grid-cols-[repeat(6,--spacing(18))] gap-1 rounded-xl bg-[linear-gradient(145deg,#f4e3c1,#ddbd84)] p-2 shadow-[0_10px_24px_rgb(69_42_17/0.24)] max-[800px]:grid-cols-[repeat(6,--spacing(16))] max-[560px]:grid-cols-[repeat(3,--spacing(14))] max-[560px]:gap-1;
   }
 
   .gem-picker-option {

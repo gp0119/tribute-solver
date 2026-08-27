@@ -145,8 +145,9 @@ export default function PracticePage() {
               solved ? 'border-[#99ad6c] bg-[linear-gradient(135deg,#f4f5d4,#dcecc7)]' : 'border-[#b89b64] bg-[linear-gradient(135deg,#fff5d9,#f1dfb6)]'
             )}
           >
-            <p className={cn('m-0 text-base font-black', solved ? 'text-[#375a37]' : 'text-[#68451f]')}>{solved ? '答对了！四个位置都正确。' : '已显示本题答案。'}</p>
-            <p className={cn('m-0 text-sm font-black', solved ? 'text-[#526c3f]' : 'text-[#765328]')}>本题答案</p>
+            <p className={cn('m-0 text-base font-black text-center w-full', solved ? 'text-[#375a37]' : 'text-[#68451f]')}>
+              {solved ? '答对了！四个位置都正确。' : '已显示本题答案。'}
+            </p>
             <CodeChips code={answer} />
             <button type='button' className='game-secondary-button' onClick={newQuestion}>
               开始下一题

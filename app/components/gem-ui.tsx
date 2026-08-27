@@ -31,7 +31,7 @@ export function GemInput({ value, onChange, label, centered = false }: { value: 
     <div
       className={cn(
         'relative z-2 grid w-full justify-items-start gap-2.5 max-[560px]:justify-items-center',
-        centered && 'justify-items-center *:data-gem-picker:left-1/2 *:data-gem-picker:-translate-x-1/2'
+        centered && 'justify-items-center'
       )}
       aria-label={label}
     >
@@ -41,20 +41,44 @@ export function GemInput({ value, onChange, label, centered = false }: { value: 
           const active = activePosition === position
           return (
             <Fragment key={position}>
-              <button
-                type='button'
-                className={cn(
-                  'gem-button',
-                  active &&
-                    '[background:color-mix(in_srgb,var(--swatch)_24%,#fff4d7)] shadow-[0_4px_10px_color-mix(in_srgb,var(--swatch)_50%,transparent)] -translate-y-0.5 scale-105'
+              <div className='relative'>
+                <button
+                  type='button'
+                  className={cn(
+                    'gem-button',
+                    active &&
+                      '[background:color-mix(in_srgb,var(--swatch)_24%,#fff4d7)] shadow-[0_4px_10px_color-mix(in_srgb,var(--swatch)_50%,transparent)] -translate-y-0.5 scale-105'
+                  )}
+                  style={{ '--swatch': color.swatch } as CSSProperties}
+                  aria-expanded={active}
+                  aria-label={`位置 ${position + 1}，当前${color.name}色`}
+                  onClick={() => setActivePosition(position)}
+                >
+                  <span aria-hidden='true' className='gem-image' style={{ '--gem-image': `url(${color.image})` } as CSSProperties} />
+                </button>
+                {active && (
+                  <div
+                    data-gem-picker
+                    className={cn('gem-picker', position === 0 ? 'left-0' : position === value.length - 1 ? 'right-0' : 'left-1/2 -translate-x-1/2')}
+                    ref={pickerRef}
+                    role='group'
+                    aria-label={`为位置 ${position + 1} 选择颜色`}
+                  >
+                    {COLORS.map((color) => (
+                      <button
+                        type='button'
+                        className='gem-picker-option'
+                        aria-pressed={value[activePosition] === color.id}
+                        aria-label={color.name}
+                        key={color.id}
+                        onClick={() => chooseColor(color.id)}
+                      >
+                        <span aria-hidden='true' className='gem-image' style={{ '--gem-image': `url(${color.image})` } as CSSProperties} />
+                      </button>
+                    ))}
+                  </div>
                 )}
-                style={{ '--swatch': color.swatch } as CSSProperties}
-                aria-expanded={active}
-                aria-label={`位置 ${position + 1}，当前${color.name}色`}
-                onClick={() => setActivePosition(position)}
-              >
-                <span aria-hidden='true' className='gem-image' style={{ '--gem-image': `url(${color.image})` } as CSSProperties} />
-              </button>
+              </div>
               {position < value.length - 1 && (
                 <button type='button' className='gem-swap-button' aria-label={`互换位置 ${position + 1} 和 ${position + 2} 的颜色`} onClick={() => swapAdjacentColors(position)}>
                   <span aria-hidden='true'>⇄</span>
@@ -65,22 +89,6 @@ export function GemInput({ value, onChange, label, centered = false }: { value: 
         })}
       </div>
 
-      {activePosition !== null && (
-        <div data-gem-picker className='gem-picker' ref={pickerRef} role='group' aria-label={`为位置 ${activePosition + 1} 选择颜色`}>
-          {COLORS.map((color) => (
-            <button
-              type='button'
-              className='gem-picker-option'
-              aria-pressed={value[activePosition] === color.id}
-              aria-label={color.name}
-              key={color.id}
-              onClick={() => chooseColor(color.id)}
-            >
-              <span aria-hidden='true' className='gem-image' style={{ '--gem-image': `url(${color.image})` } as CSSProperties} />
-            </button>
-          ))}
-        </div>
-      )}
     </div>
   )
 }
