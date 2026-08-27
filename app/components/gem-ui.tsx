@@ -5,11 +5,13 @@ import { cn } from '../lib/cn'
 
 export function GemInput({ value, onChange, label, centered = false }: { value: ColorId[]; onChange: (value: ColorId[]) => void; label: string; centered?: boolean }) {
   const [activePosition, setActivePosition] = useState<number | null>(null)
-  const rootRef = useRef<HTMLDivElement>(null)
+  const gemGridRef = useRef<HTMLDivElement>(null)
+  const pickerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const closePicker = (event: PointerEvent) => {
-      if (!rootRef.current?.contains(event.target as Node)) setActivePosition(null)
+      const target = event.target as Node
+      if (!gemGridRef.current?.contains(target) && !pickerRef.current?.contains(target)) setActivePosition(null)
     }
     document.addEventListener('pointerdown', closePicker)
     return () => document.removeEventListener('pointerdown', closePicker)
@@ -28,9 +30,8 @@ export function GemInput({ value, onChange, label, centered = false }: { value: 
         centered && 'justify-items-center *:data-gem-picker:left-1/2 *:data-gem-picker:-translate-x-1/2'
       )}
       aria-label={label}
-      ref={rootRef}
     >
-      <div className='gem-input-grid'>
+      <div className='gem-input-grid' ref={gemGridRef}>
         {value.map((colorId, position) => {
           const color = COLOR_BY_ID.get(colorId)!
           const active = activePosition === position
@@ -55,7 +56,7 @@ export function GemInput({ value, onChange, label, centered = false }: { value: 
       </div>
 
       {activePosition !== null && (
-        <div data-gem-picker className='gem-picker' role='group' aria-label={`为位置 ${activePosition + 1} 选择颜色`}>
+        <div data-gem-picker className='gem-picker' ref={pickerRef} role='group' aria-label={`为位置 ${activePosition + 1} 选择颜色`}>
           {COLORS.map((color) => (
             <button
               type='button'

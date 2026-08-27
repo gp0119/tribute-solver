@@ -30,7 +30,7 @@
   }
 
   .game-subtitle {
-    @apply m-0 text-base text-[#705c47] max-[560px]:mx-auto max-[560px]:max-w-124 max-[560px]:text-center max-[560px]:text-sm max-[560px]:leading-6;
+    @apply m-0 text-base text-[#705c47] text-left max-[560px]:mx-auto max-[560px]:max-w-124 max-[560px]:text-sm max-[560px]:leading-6;
   }
 
   .game-actions {
@@ -190,7 +190,7 @@
   }
 
   .game-history-list {
-    @apply m-0 grid list-none gap-2 p-0;
+    @apply m-0 grid list-none gap-2 p-0 mt-5.5;
   }
 
   .solver-history-row {

@@ -89,7 +89,6 @@ export default function PracticePage() {
           <h2 className='game-heading' id='practice-history-title'>
             猜测结果
           </h2>
-          <p className='m-0 text-sm text-[#80694d]'>{attempts.length === 0 ? '提交后会立即显示游戏图标。' : `${attempts.length} 次`}</p>
         </div>
         {attempts.length === 0 ? (
           <div className='game-empty-state'>还没有猜测。选好四个颜色后，点击“提交这一手”。</div>
@@ -116,12 +115,9 @@ export default function PracticePage() {
 
       <section className='game-panel mt-6.5 overflow-visible max-[560px]:mt-3' aria-labelledby='practice-title'>
         <div className='mb-4.5 flex items-start justify-between gap-4.5 max-[560px]:mb-3 max-[560px]:items-center max-[560px]:gap-2.5'>
-          <div>
-            <h2 className='game-heading' id='practice-title'>
-              第 {attempts.length + 1} 次猜测
-            </h2>
-            <p className='mt-0 mb-3.5 text-sm text-[#71583d] max-[560px]:mb-2.5 max-[560px]:text-center'>点击一格选择宝石，选中后会自动跳到下一格。</p>
-          </div>
+          <h2 className='game-heading' id='practice-title'>
+            第 {attempts.length + 1} 次猜测
+          </h2>
           <span className='game-step-count'>{attempts.length}</span>
         </div>
 
