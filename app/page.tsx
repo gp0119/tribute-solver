@@ -9,10 +9,8 @@ import { getAttemptsSnapshot, getServerAttemptsSnapshot, MAX_RECORDED_ATTEMPTS, 
 import { cn } from './lib/cn'
 import { codeKey, findBestRecommendation, findMatchingCodes, type ColorId, type Score } from './lib/tribute'
 
-const panelClass =
-  "relative rounded-2xl border border-[#c9a96d] bg-[rgb(255_247_226/0.84)] p-6 shadow-[inset_0_2px_0_rgb(255_255_255/0.6),0_16px_30px_rgb(80_47_19/0.09)] before:absolute before:top-0 before:right-5 before:left-5 before:h-1 before:rounded-b-md before:bg-[linear-gradient(90deg,#b27b35,#f1d39c_22%,#a56e2d_50%,#f1d39c_78%,#b27b35)] before:content-[''] max-[560px]:rounded-xl max-[560px]:px-3 max-[560px]:py-4"
-const sectionClass =
-  'rounded-2xl border border-[#c9a96d] bg-[rgb(255_247_226/0.84)] px-6 py-5.5 shadow-[inset_0_2px_0_rgb(255_255_255/0.6),0_16px_30px_rgb(80_47_19/0.09)] max-[560px]:rounded-xl max-[560px]:px-3 max-[560px]:py-4'
+const panelClass = 'relative rounded-2xl border border-[#c9a96d] bg-[rgb(255_247_226/0.84)] p-6 max-[560px]:rounded-xl max-[560px]:px-3 max-[560px]:py-4'
+const sectionClass = 'rounded-2xl border border-[#c9a96d] bg-[rgb(255_247_226/0.84)] px-6 py-5.5 max-[560px]:rounded-xl max-[560px]:px-3 max-[560px]:py-4'
 const headingClass = 'mt-1.5 mb-0 text-2xl font-black tracking-[0.035em] text-[#4b311e] max-[560px]:text-xl'
 const primaryButtonClass =
   'w-full cursor-pointer rounded-lg border border-[#702c21] bg-[linear-gradient(#c45b42,#903528)] px-3.5 py-3 font-extrabold tracking-[0.04em] text-[#fff7dc] shadow-[inset_0_1px_rgb(255_255_255/0.32),inset_0_-2px_rgb(73_24_19/0.33),0_3px_0_rgb(87_40_19/0.16)] transition-[filter,transform] duration-150 hover:not-disabled:-translate-y-px hover:not-disabled:brightness-[1.06] disabled:cursor-not-allowed disabled:opacity-50 focus-visible:outline-3 focus-visible:outline-[#2f8ba0] focus-visible:outline-offset-3'
@@ -101,7 +99,7 @@ export default function Home() {
       : 'grid h-11 min-w-16 place-items-center rounded-lg border border-[#7aa26d] bg-[linear-gradient(135deg,#e7f1c9,#afd198)] text-2xl font-extrabold text-[#2e6135] shadow-[inset_0_0_0_2px_rgb(255_248_225/0.53)]'
 
   return (
-    <main className="relative isolate mx-auto w-[min(72rem,calc(100%---spacing(8)))] py-11 pb-16 before:absolute before:top-39 before:-left-31 before:-z-10 before:size-56 before:rounded-full before:border before:border-[rgb(109_67_24/0.12)] before:shadow-[0_0_0_19px_rgb(157_106_52/0.045),0_0_0_42px_rgb(157_106_52/0.025)] before:content-[''] after:absolute after:-right-27.5 after:bottom-22 after:-z-10 after:size-56 after:rounded-full after:border after:border-[rgb(109_67_24/0.12)] after:shadow-[0_0_0_24px_rgb(157_106_52/0.035)] after:content-[''] max-[800px]:w-[calc(100%---spacing(5))] max-[800px]:py-6.5 max-[800px]:pb-10 max-[800px]:before:hidden max-[800px]:after:hidden max-[560px]:w-[calc(100%---spacing(4))] max-[560px]:py-4 max-[560px]:pb-7">
+    <main className='relative isolate mx-auto w-[min(72rem,calc(100%---spacing(8)))] py-11 pb-16 max-[800px]:py-6.5 max-[800px]:pb-10 max-[800px]:before:hidden max-[800px]:after:hidden max-[560px]:w-[calc(100%---spacing(4))] max-[560px]:py-4 max-[560px]:pb-7'>
       <header className='relative mb-6 flex items-start justify-between gap-6 px-1.5 pb-6.5 max-[800px]:flex-col max-[800px]:gap-3.5 max-[560px]:mb-3.5 max-[560px]:gap-2.5 max-[560px]:px-0.5 max-[560px]:pb-4.5'>
         <div className='relative pl-6.5 max-[560px]:pl-0 max-[560px]:text-center'>
           <p className='m-0 text-xs font-extrabold tracking-[0.12em] text-[#95692f]'>DON&apos;T STARVE TOGETHER · MEDAL MOD</p>
@@ -163,7 +161,7 @@ export default function Home() {
           <ol className='m-0 grid list-none gap-2 p-0'>
             {attempts.map((attempt, index) => (
               <li
-                className='grid grid-cols-[--spacing(8)_minmax(0,1fr)_auto] items-center gap-2.5 rounded-xl border border-[#dfccaa] bg-[linear-gradient(100deg,rgb(255_253_245/0.84),rgb(247_235_209/0.56))] px-2.5 py-2 shadow-[inset_0_1px_rgb(255_255_255/0.72)] transition-[background,border-color,transform] duration-150 hover:-translate-y-px hover:border-[#cda462] hover:bg-[#fffdf6] max-[560px]:grid-cols-[auto_minmax(0,1fr)_auto] max-[560px]:gap-1.5 max-[560px]:px-1.5 max-[560px]:py-2 max-[560px]:*:data-code-chips:justify-self-start max-[560px]:*:data-code-chips:flex-nowrap max-[560px]:*:data-code-chips:gap-px max-[560px]:**:data-color-chip:size-[clamp(--spacing(9),11vw,--spacing(11))]'
+                className='grid grid-cols-[--spacing(8)_minmax(0,1fr)_auto] items-center gap-2.5 rounded-xl border border-[#dfccaa] bg-[linear-gradient(100deg,rgb(255_253_245/0.84),rgb(247_235_209/0.56))] px-2.5 py-2 transition-[background,border-color,transform] duration-150 hover:-translate-y-px hover:border-[#cda462] hover:bg-[#fffdf6] max-[560px]:grid-cols-[auto_minmax(0,1fr)_auto] max-[560px]:gap-1.5 max-[560px]:px-1.5 max-[560px]:py-2 max-[560px]:*:data-code-chips:justify-self-start max-[560px]:*:data-code-chips:flex-nowrap max-[560px]:*:data-code-chips:gap-px max-[560px]:**:data-color-chip:size-[clamp(--spacing(9),11vw,--spacing(11))]'
                 key={attempt.id}
               >
                 <span className='grid size-7 place-items-center rounded-full border border-[#af7d3e] bg-[radial-gradient(circle_at_35%_30%,#fff2ca,#e5c487)] text-sm font-black text-[#785127]'>
@@ -174,7 +172,7 @@ export default function Home() {
                   <ResultIcons value={{ exact: attempt.exact, misplaced: attempt.misplaced }} compact />
                   <button
                     type='button'
-                    className='cursor-pointer rounded-md border border-[#d3a69c] bg-[linear-gradient(#fffaf7,#f8e6dd)] px-2.5 py-1.5 text-xs font-extrabold text-[#885044] shadow-[inset_0_1px_rgb(255_255_255/0.75),0_2px_0_rgb(104_72_32/0.12)] transition-[transform,filter,box-shadow] duration-150 hover:-translate-y-px hover:brightness-[1.04] hover:shadow-[inset_0_1px_rgb(255_255_255/0.8),0_4px_0_rgb(104_72_32/0.13)] focus-visible:outline-3 focus-visible:outline-[#2f8ba0] focus-visible:outline-offset-3 max-[560px]:min-w-10 max-[560px]:rounded-full max-[560px]:px-1.5 max-[560px]:py-1 max-[560px]:text-xs max-[560px]:leading-none'
+                    className='cursor-pointer rounded-md border border-[#d3a69c] bg-[linear-gradient(#fffaf7,#f8e6dd)] px-2.5 py-1.5 text-xs font-extrabold text-[#885044] transition-[transform,filter,box-shadow] duration-150 hover:-translate-y-px hover:brightness-[1.04] focus-visible:outline-3 focus-visible:outline-[#2f8ba0] focus-visible:outline-offset-3 max-[560px]:min-w-10 max-[560px]:rounded-full max-[560px]:px-1.5 max-[560px]:py-1 max-[560px]:text-xs max-[560px]:leading-none'
                     onClick={() => saveAttempts(attempts.filter((item) => item.id !== attempt.id))}
                     aria-label={`删除第${index + 1}行`}
                   >
@@ -239,7 +237,7 @@ export default function Home() {
               </button>
               {tooManyRows && <p className='m-0 text-sm text-[#875a34]'>已记录六行；可删掉某行后重新推断。</p>}
               {candidates.length > 1 && recommendation && (
-                <div className="relative overflow-hidden rounded-xl border border-[#9cad72] bg-[linear-gradient(135deg,#fbf7db,#e0eec9)] p-3.5 shadow-[inset_0_1px_rgb(255_255_255/0.8),0_6px_16px_rgb(73_104_47/0.08)] after:absolute after:-top-8 after:-right-6.5 after:size-28 after:rounded-full after:border-16 after:border-[rgb(103_145_73/0.1)] after:content-[''] max-[560px]:text-center">
+                <div className='relative overflow-hidden rounded-xl border border-[#9cad72] bg-[linear-gradient(135deg,#fbf7db,#e0eec9)] p-3.5 max-[560px]:text-center'>
                   <p className='relative z-1 mb-2 text-xs font-black tracking-[0.08em] text-[#4f743f]'>推荐下一手</p>
                   <CodeChips code={recommendation.code} small />
                   <p className='relative z-1 my-2 text-xs text-[#547052]'>下一条结果至多留下 {recommendation.worstCase} 种可能。</p>
@@ -265,15 +263,14 @@ export default function Home() {
               <p className='m-0'>没有任何排列符合这些结果。请检查某一行的两种图标数量，或删除该行后重填。</p>
             </div>
           ) : isSolved ? (
-            <div className="relative mt-6 overflow-hidden rounded-xl border border-[#6e9c72] bg-[linear-gradient(135deg,#e9f6dc,#c8e8be)] p-4.5 shadow-[inset_0_1px_rgb(255_255_255/0.8),0_6px_16px_rgb(73_104_47/0.08)] after:absolute after:-top-8 after:-right-6.5 after:size-28 after:rounded-full after:border-16 after:border-[rgb(103_145_73/0.1)] after:content-['']">
-              <p className='relative z-1 mb-3.5 text-xs font-black tracking-[0.08em] text-[#4f743f]'>最终答案</p>
+            <div className='relative mt-6 overflow-hidden rounded-xl border border-[#6e9c72] bg-[linear-gradient(135deg,#e9f6dc,#c8e8be)] p-4.5 '>
               <CodeChips code={candidates[0]} />
             </div>
           ) : null}
 
           {candidates.length > 1 && candidates.length <= 24 && (
             <div
-              className='mt-5.5 rounded-xl border border-[#dcc69a] bg-[linear-gradient(145deg,rgb(255_253_245/0.78),rgb(246_232_201/0.52))] p-3 shadow-[inset_0_1px_rgb(255_255_255/0.82)] max-[560px]:mt-3 max-[560px]:p-2.5'
+              className='mt-5.5 rounded-xl border border-[#dcc69a] bg-[linear-gradient(145deg,rgb(255_253_245/0.78),rgb(246_232_201/0.52))] p-3 max-[560px]:mt-3 max-[560px]:p-2.5'
               aria-label='全部剩余候选'
             >
               <div className='mb-2.5 flex items-center justify-between gap-2.5'>
@@ -283,7 +280,7 @@ export default function Home() {
               <div className='grid grid-cols-[repeat(auto-fit,minmax(--spacing(56),1fr))] gap-2'>
                 {candidates.map((code) => (
                   <div
-                    className='*:data-code-chips:flex *:data-code-chips:w-full *:data-code-chips:justify-center *:data-code-chips:rounded-lg *:data-code-chips:border *:data-code-chips:border-[rgb(177_144_87/0.28)] *:data-code-chips:bg-[rgb(255_255_255/0.62)] *:data-code-chips:p-1 *:data-code-chips:shadow-[inset_0_1px_rgb(255_255_255/0.82)] hover:*:data-code-chips:border-[#c49d5b] hover:*:data-code-chips:bg-[#fffdf6]'
+                    className='*:data-code-chips:flex *:data-code-chips:w-full *:data-code-chips:justify-center *:data-code-chips:rounded-lg *:data-code-chips:border *:data-code-chips:border-[rgb(177_144_87/0.28)] *:data-code-chips:bg-[rgb(255_255_255/0.62)] *:data-code-chips:p-1 hover:*:data-code-chips:border-[#c49d5b] hover:*:data-code-chips:bg-[#fffdf6]'
                     key={codeKey(code)}
                   >
                     <CodeChips code={code} small />
@@ -303,14 +300,14 @@ export default function Home() {
       {showConflict && (
         <div className='fixed inset-0 z-100 grid place-items-center bg-[rgb(43_27_17/0.58)] p-4.5 backdrop-blur-xs' role='presentation' onClick={() => setShowConflict(false)}>
           <section
-            className='w-[min(26rem,100%)] rounded-2xl border border-[#c98e55] bg-[linear-gradient(145deg,#fff8e8,#f1d7ad)] p-6 text-center text-[#593721] shadow-[inset_0_1px_rgb(255_255_255/0.85),0_22px_60px_rgb(33_19_11/0.35)]'
+            className='w-[min(26rem,100%)] rounded-2xl border border-[#c98e55] bg-[linear-gradient(145deg,#fff8e8,#f1d7ad)] p-6 text-center text-[#593721]'
             role='alertdialog'
             aria-modal='true'
             aria-labelledby='conflict-title'
             onClick={(event) => event.stopPropagation()}
           >
             <span
-              className='mx-auto mb-3 grid size-10 place-items-center rounded-full border border-[#8b392b] bg-[linear-gradient(#c75e43,#8d3127)] text-2xl font-black text-[#fff4d9] shadow-[inset_0_1px_rgb(255_255_255/0.3),0_5px_12px_rgb(116_43_31/0.2)]'
+              className='mx-auto mb-3 grid size-10 place-items-center rounded-full border border-[#8b392b] bg-[linear-gradient(#c75e43,#8d3127)] text-2xl font-black text-[#fff4d9]'
               aria-hidden='true'
             >
               !

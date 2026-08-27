@@ -12,14 +12,12 @@ type PracticeAttempt = { id: number; guess: ColorId[]; result: Score }
 
 const DEFAULT_GUESS: ColorId[] = [0, 0, 1, 1]
 const headingClass = 'mt-1.5 mb-0 text-2xl font-black tracking-[0.035em] text-[#4b311e] max-[560px]:text-xl'
-const panelClass =
-  "relative rounded-2xl border border-[#c9a96d] bg-[rgb(255_247_226/0.84)] p-6 shadow-[inset_0_2px_0_rgb(255_255_255/0.6),0_16px_30px_rgb(80_47_19/0.09)] before:absolute before:top-0 before:right-5 before:left-5 before:h-1 before:rounded-b-md before:bg-[linear-gradient(90deg,#b27b35,#f1d39c_22%,#a56e2d_50%,#f1d39c_78%,#b27b35)] before:content-[''] max-[560px]:rounded-xl max-[560px]:px-3 max-[560px]:py-4"
-const sectionClass =
-  'rounded-2xl border border-[#c9a96d] bg-[rgb(255_247_226/0.84)] px-6 py-5.5 shadow-[inset_0_2px_0_rgb(255_255_255/0.6),0_16px_30px_rgb(80_47_19/0.09)] max-[560px]:rounded-xl max-[560px]:px-3 max-[560px]:py-4'
+const panelClass = 'relative rounded-2xl border border-[#c9a96d] bg-[rgb(255_247_226/0.84)] p-6 max-[560px]:rounded-xl max-[560px]:px-3 max-[560px]:py-4'
+const sectionClass = 'rounded-2xl border border-[#c9a96d] bg-[rgb(255_247_226/0.84)] px-6 py-5.5 max-[560px]:rounded-xl max-[560px]:px-3 max-[560px]:py-4'
 const primaryButtonClass =
-  'w-full cursor-pointer rounded-lg border border-[#702c21] bg-[linear-gradient(#c45b42,#903528)] px-3.5 py-3 font-extrabold tracking-[0.04em] text-[#fff7dc] shadow-[inset_0_1px_rgb(255_255_255/0.32),inset_0_-2px_rgb(73_24_19/0.33),0_3px_0_rgb(87_40_19/0.16)] transition-[filter,transform] duration-150 hover:not-disabled:-translate-y-px hover:not-disabled:brightness-[1.06] disabled:cursor-not-allowed disabled:opacity-50 focus-visible:outline-3 focus-visible:outline-[#2f8ba0] focus-visible:outline-offset-3'
+  'w-full cursor-pointer rounded-lg border border-[#702c21] bg-[linear-gradient(#c45b42,#903528)] px-3.5 py-3 font-extrabold tracking-[0.04em] text-[#fff7dc] transition-[filter,transform] duration-150 hover:not-disabled:-translate-y-px hover:not-disabled:brightness-[1.06] disabled:cursor-not-allowed disabled:opacity-50 focus-visible:outline-3 focus-visible:outline-[#2f8ba0] focus-visible:outline-offset-3'
 const secondaryButtonClass =
-  'relative z-1 cursor-pointer rounded-lg border border-[#8eaa77] bg-[linear-gradient(#fffef7,#edf2df)] px-3.5 py-2.5 text-sm font-extrabold text-[#46633b] shadow-[inset_0_1px_rgb(255_255_255/0.75),0_2px_0_rgb(104_72_32/0.12)] transition-[transform,filter,box-shadow] duration-150 hover:-translate-y-px hover:brightness-[1.04] hover:shadow-[inset_0_1px_rgb(255_255_255/0.8),0_4px_0_rgb(104_72_32/0.13)] focus-visible:outline-3 focus-visible:outline-[#2f8ba0] focus-visible:outline-offset-3'
+  'relative z-1 cursor-pointer rounded-lg border border-[#8eaa77] bg-[linear-gradient(#fffef7,#edf2df)] px-3.5 py-2.5 text-sm font-extrabold text-[#46633b] transition-[transform,filter,box-shadow] duration-150 hover:-translate-y-px hover:brightness-[1.04] focus-visible:outline-3 focus-visible:outline-[#2f8ba0] focus-visible:outline-offset-3'
 
 export default function PracticePage() {
   const [answer, setAnswer] = useState<ColorId[]>(() => randomCode())
@@ -45,8 +43,8 @@ export default function PracticePage() {
   }
 
   return (
-    <main className="relative isolate mx-auto w-[min(72rem,calc(100%---spacing(8)))] py-11 pb-16 before:absolute before:top-39 before:-left-31 before:-z-10 before:size-56 before:rounded-full before:border before:border-[rgb(109_67_24/0.12)] before:shadow-[0_0_0_19px_rgb(157_106_52/0.045),0_0_0_42px_rgb(157_106_52/0.025)] before:content-[''] after:absolute after:-right-27.5 after:bottom-22 after:-z-10 after:size-56 after:rounded-full after:border after:border-[rgb(109_67_24/0.12)] after:shadow-[0_0_0_24px_rgb(157_106_52/0.035)] after:content-[''] max-[800px]:w-[calc(100%---spacing(5))] max-[800px]:py-6.5 max-[800px]:pb-10 max-[800px]:before:hidden max-[800px]:after:hidden max-[560px]:w-[calc(100%---spacing(4))] max-[560px]:py-4 max-[560px]:pb-7">
-      <header className="relative mb-6 flex items-start justify-between gap-6 px-1.5 pb-6.5 after:absolute after:inset-x-0 after:bottom-0 after:h-1 after:rounded-full after:bg-[linear-gradient(90deg,transparent,#9e6f31_12%,#ddc18b_38%,#9e6f31_50%,#ddc18b_62%,#9e6f31_88%,transparent)] after:content-[''] max-[800px]:flex-col max-[800px]:gap-3.5 max-[560px]:mb-3.5 max-[560px]:gap-2.5 max-[560px]:px-0.5 max-[560px]:pb-4.5">
+    <main className='relative isolate mx-auto w-[min(72rem,calc(100%---spacing(8)))] py-11 pb-16 max-[800px]:w-[calc(100%---spacing(5))] max-[800px]:py-6.5 max-[800px]:pb-10 max-[800px]:before:hidden max-[800px]:after:hidden max-[560px]:w-[calc(100%---spacing(4))] max-[560px]:py-4 max-[560px]:pb-7'>
+      <header className='relative mb-6 flex items-start justify-between gap-6 px-1.5 pb-6.5 max-[800px]:flex-col max-[800px]:gap-3.5 max-[560px]:mb-3.5 max-[560px]:gap-2.5 max-[560px]:px-0.5 max-[560px]:pb-4.5'>
         <div className='relative pl-6.5 max-[560px]:pl-0 max-[560px]:text-center'>
           <span className='absolute top-0.5 left-0 text-base text-[#9f7135] [text-shadow:0_1px_#fff1cf] max-[560px]:hidden' aria-hidden='true'>
             ✦
