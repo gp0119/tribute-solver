@@ -184,7 +184,7 @@ export default function Home() {
               </div>
             </div>
             <div className='col-span-full grid w-full grid-cols-[minmax(0,1fr)] gap-2.5 self-start pb-0.5'>
-              <button type='button' className='game-primary-button game-primary-button--raised' onClick={addAttempt} disabled={tooManyRows}>
+              <button type='button' className='game-primary-button' onClick={addAttempt} disabled={tooManyRows}>
                 记录这一行
               </button>
               {tooManyRows && <p className='m-0 text-sm text-[#875a34]'>已记录六行；可删掉某行后重新推断。</p>}

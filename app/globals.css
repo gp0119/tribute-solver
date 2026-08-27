@@ -18,7 +18,7 @@
   }
 
   .game-brand {
-    @apply relative pl-6.5 max-[560px]:pl-0 max-[560px]:text-center;
+    @apply relative pl-2.5 max-[560px]:pl-0 max-[560px]:text-center;
   }
 
   .game-eyebrow {
@@ -110,11 +110,7 @@
   }
 
   .game-primary-button {
-    @apply w-full cursor-pointer rounded-lg border border-[#702c21] bg-[linear-gradient(#c45b42,#903528)] px-3.5 py-3 font-extrabold tracking-[0.04em] text-[#fff7dc] transition-[filter,transform] duration-150 hover:not-disabled:-translate-y-px hover:not-disabled:brightness-[1.06] disabled:cursor-not-allowed disabled:opacity-50 focus-visible:outline-3 focus-visible:outline-[#2f8ba0] focus-visible:outline-offset-3;
-  }
-
-  .game-primary-button--raised {
-    @apply shadow-[inset_0_1px_rgb(255_255_255/0.32),inset_0_-2px_rgb(73_24_19/0.33),0_3px_0_rgb(87_40_19/0.16)];
+    @apply w-full mt-2.5 cursor-pointer rounded-lg border border-[#702c21] bg-[linear-gradient(#c45b42,#903528)] px-3.5 py-3 font-extrabold tracking-[0.04em] text-[#fff7dc] transition-[filter,transform] duration-150 hover:not-disabled:-translate-y-px hover:not-disabled:brightness-[1.06] disabled:cursor-not-allowed disabled:opacity-50 focus-visible:outline-3 focus-visible:outline-[#2f8ba0] focus-visible:outline-offset-3;
   }
 
   .game-secondary-button {
@@ -218,7 +214,7 @@
   }
 
   .solver-entry-grid {
-    @apply my-2 mb-5 grid max-w-full grid-cols-[minmax(--spacing(80),max-content)_minmax(--spacing(64),1fr)] items-center gap-5 overflow-visible pb-1 max-[800px]:grid-cols-1 max-[800px]:gap-4 max-[560px]:my-1 max-[560px]:mb-3 max-[560px]:gap-2.5 max-[560px]:pb-0;
+    @apply my-4 mb-5 grid max-w-full grid-cols-[max-content_minmax(0,34rem)] items-center justify-center gap-5 overflow-visible pb-1 max-[800px]:grid-cols-1 max-[800px]:gap-4 max-[560px]:my-1 max-[560px]:mb-3 max-[560px]:gap-2.5 max-[560px]:pb-0;
   }
 
   .candidate-code {
@@ -238,6 +234,6 @@
   }
 
   .gem-input-grid {
-    @apply grid grid-cols-[repeat(4,--spacing(18))] gap-3 max-[800px]:grid-cols-[repeat(4,--spacing(16))] max-[800px]:gap-2 max-[560px]:grid-cols-[repeat(4,--spacing(14))] max-[560px]:gap-1.5;
+    @apply grid grid-cols-[repeat(4,--spacing(18))] gap-5 max-[800px]:grid-cols-[repeat(4,--spacing(16))] max-[800px]:gap-3 max-[560px]:grid-cols-[repeat(4,--spacing(14))] max-[560px]:gap-1.5;
   }
 }

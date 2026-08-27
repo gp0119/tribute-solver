@@ -39,15 +39,12 @@ export default function PracticePage() {
     <main className='game-shell game-shell--practice'>
       <header className='game-header'>
         <div className='game-brand'>
-          <span className='absolute top-0.5 left-0 text-base text-[#9f7135] [text-shadow:0_1px_#fff1cf] max-[560px]:hidden' aria-hidden='true'>
-            ✦
-          </span>
           <p className='game-eyebrow'>DON&apos;T STARVE TOGETHER · MEDAL MOD</p>
           <div className='flex items-center gap-2.5'>
             <Image className='game-divider-icon game-divider-icon--large' src='/tribute-box.png' alt='' width={64} height={64} />
             <h1 className='game-title'>奉纳符做题</h1>
           </div>
-          <p className='game-subtitle'>网页随机出题，直接按游戏规则给出两种图标结果。</p>
+          <p className='game-subtitle'>网页随机出题</p>
         </div>
         <div className='game-actions game-actions--practice'>
           <nav className='game-nav' aria-label='页面导航'>
@@ -145,7 +142,7 @@ export default function PracticePage() {
         ) : (
           <div className='grid grid-cols-1 justify-items-center gap-4 max-[560px]:gap-2.5'>
             <GemInput value={guess} onChange={setGuess} label='选择四个颜色' centered />
-            <button type='button' className='game-primary-button min-h-12 max-w-xl' onClick={submitGuess}>
+            <button type='button' className='game-primary-button min-h-12 max-w-xl min-[561px]:mt-4' onClick={submitGuess}>
               提交这一手
             </button>
           </div>
