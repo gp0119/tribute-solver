@@ -98,7 +98,7 @@
   }
 
   .game-empty-state {
-    @apply m-0 rounded-xl border border-dashed border-[#d0af75] bg-[rgb(255_250_238/0.54)] p-3.5 leading-relaxed text-[#795f41] max-[560px]:p-3 max-[560px]:leading-normal max-[560px]:text-center;
+    @apply m-0 mt-5.5 rounded-xl border border-dashed border-[#d0af75] bg-[rgb(255_250_238/0.54)] p-3.5 leading-relaxed text-[#795f41] max-[560px]:p-3 max-[560px]:leading-normal max-[560px]:text-center;
   }
 
   .game-empty-state--relaxed-mobile {

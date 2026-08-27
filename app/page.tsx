@@ -189,7 +189,7 @@ export default function Home() {
               </button>
               {tooManyRows && <p className='m-0 text-sm text-[#875a34]'>已记录六行；可删掉某行后重新推断。</p>}
               {candidates.length > 1 && recommendation && (
-                <div className='relative overflow-hidden rounded-xl border border-[#9cad72] bg-[linear-gradient(135deg,#fbf7db,#e0eec9)] p-3.5 max-[560px]:text-center'>
+                <div className='relative overflow-hidden rounded-xl border border-[#9cad72] bg-[linear-gradient(135deg,#fbf7db,#e0eec9)] p-3.5 max-[560px]:text-center mt-2.5'>
                   <p className='relative z-1 mb-2 text-xs font-black tracking-[0.08em] text-[#4f743f]'>推荐下一手</p>
                   <CodeChips code={recommendation.code} small />
                   <p className='relative z-1 my-2 text-xs text-[#547052]'>下一条结果至多留下 {recommendation.worstCase} 种可能。</p>
@@ -238,7 +238,7 @@ export default function Home() {
               </div>
             </div>
           )}
-          {candidates.length > 24 && <p className='game-empty-state game-empty-state--relaxed-mobile mt-auto'>候选较多时先使用推荐下一手，结果会大幅缩小范围。</p>}
+          {candidates.length > 24 && <p className='game-empty-state game-empty-state--relaxed-mobile'>候选较多时先使用推荐下一手，结果会大幅缩小范围。</p>}
         </section>
       </div>
 
